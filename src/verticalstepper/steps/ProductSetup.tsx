@@ -1,0 +1,588 @@
+import React, { FC, useState } from 'react';
+import { KTSVG } from '../helpers';
+import { Field, ErrorMessage } from 'formik';
+import { Row, Col, Container } from 'react-bootstrap';
+type Props = {
+	audiencePreference?: boolean;
+	setAudiencePreference: (boolean: boolean) => void;
+};
+const ProductSetup: FC<Props> = ({
+	audiencePreference,
+	setAudiencePreference,
+}: Props) => {
+	return (
+		<div className='w-100'>
+			<div className='pb-10 pb-lg-15'>
+				<h2 className='fw-bolder text-dark'>Project Setup</h2>
+
+				{/* <div className='text-gray-400 fw-bold fs-6'>
+          If you need more info, please check out
+          <a href='/dashboard' className='link-primary fw-bolder'>
+            {' '}
+            Help Page
+          </a>
+          .
+        </div> */}
+			</div>
+
+			<div className='mb-10 fv-row'>
+				<label className='form-label mb-3'>
+					What would you like to name your project?
+				</label>
+
+				<Field
+					type='text'
+					className='form-control form-control-lg form-control-solid'
+					name='projectName'
+				/>
+				<div className='text-danger mt-2'>
+					<ErrorMessage name='projectName' />
+				</div>
+			</div>
+			<div className='row'>
+				<div className='col-lg-6 fv-row'>
+					<div className='mb-4'>
+						<label className='form-label mb-3'>
+							Start Date
+						</label>
+
+						<Field
+							type='Date'
+							className='form-control form-control-lg form-control-solid'
+							name='startDate'
+						/>
+						<div className='text-danger mt-2'>
+							<ErrorMessage name='startDate' />
+						</div>
+					</div>
+				</div>
+				<div className='col-lg-6 fv-row'>
+					<div className='mb-4'>
+						<label className='form-label mb-3'>
+							End Date
+						</label>
+
+						<Field
+							type='Date'
+							className='form-control form-control-lg form-control-solid'
+							name='endDate'
+						/>
+
+						<div className='text-danger mt-2'>
+							<ErrorMessage name='endDate' />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div className='fv-row mb-10'>
+				<label className='form-label required'>
+					Industry Selection
+				</label>
+
+				<Field
+					as='select'
+					name='businessType'
+					className='form-select form-select-lg form-select-solid'>
+					<option></option>
+					<option value='S Corporation'>
+						S Corporation
+					</option>
+					<option value='C Corporation'>
+						C Corporation
+					</option>
+					<option value='Sole Proprietorship'>
+						Sole Proprietorship
+					</option>
+					<option value='Non-profit'>Non-profit</option>
+					<option value='Limited Liability'>
+						Limited Liability
+					</option>
+					<option value='General Partnership'>
+						General Partnership
+					</option>
+				</Field>
+				<div className='text-danger mt-2'>
+					<ErrorMessage name='businessType' />
+				</div>
+			</div>
+
+			<div className='mb-0 fv-row'>
+				<label className='d-flex align-items-center form-label mb-5'>
+					<h2 className='fw-bolder text-dark'>
+						Demographics
+					</h2>
+					<i
+						className='fas fa-exclamation-circle ms-2 fs-7'
+						data-bs-toggle='tooltip'
+						title='Monthly billing will be based on your account plan'></i>
+				</label>
+
+				<div className='mb-2'>
+					<div className='d-flex'>
+						{/* <div className='col-lg-6 fv-row'> */}
+						<label className='d-flex flex-stack mb-5 me-4 cursor-pointer'>
+							<span className='form-check d-flex align-items-center form-check-custom form-check-solid'>
+								<Field
+									className='form-check-input'
+									type='radio'
+									style={{
+										backgroundColor:
+											'cornflowerblue',
+									}}
+									name='accountPlan'
+									value='1'
+									onClick={() => {
+										setAudiencePreference(
+											false,
+										);
+									}}
+								/>
+							</span>
+							<span className='d-flex align-items-center me-2'>
+								{/* <span className='symbol symbol-50px me-6'>
+                <span className='symbol-label'>
+                  <KTSVG
+                    path='/media/icons/duotune/finance/fin001.svg'
+                    className='svg-icon-1 svg-icon-gray-600'
+                  />
+                </span>
+              </span> */}
+
+								<span className='d-flex flex-column'>
+									<span className='fw-bolder text-gray-800 text-hover-primary fs-5'>
+										No Audience
+										Preference
+									</span>
+									{/* <span className='fs-6 fw-bold text-gray-400'>
+                  Use images to enhance your post flow
+                </span> */}
+								</span>
+							</span>
+						</label>
+						{/* </div> */}
+						{/* <div className='col-lg-6 fv-row'> */}
+						<label className='d-flex flex-stack mb-5 cursor-pointer'>
+							<span className='form-check  d-flex align-items-center form-check-custom form-check-solid'>
+								<Field
+									className='form-check-input'
+									type='radio'
+									style={{
+										backgroundColor:
+											'cornflowerblue',
+									}}
+									name='accountPlan'
+									value='2'
+									onClick={() => {
+										setAudiencePreference(
+											true,
+										);
+									}}
+								/>
+							</span>
+							<span className='d-flex align-items-center me-2'>
+								{/* <span className='symbol symbol-50px me-6'>
+                <span className='symbol-label'>
+                  <KTSVG
+                    path='/media/icons/duotune/graphs/gra006.svg'
+                    className='svg-icon-1 svg-icon-gray-600'
+                  />
+                </span>
+              </span> */}
+
+								<span className='d-flex flex-column'>
+									<span className='fw-bolder text-gray-800 text-hover-primary fs-5'>
+										Audience Preference
+									</span>
+									{/* <span className='fs-6 fw-bold text-gray-400'>Use images to your post time</span> */}
+								</span>
+							</span>
+						</label>
+						{/* </div> */}
+					</div>
+				</div>
+
+				{audiencePreference ? (
+					<div className='row'>
+						<div className='col-lg-3 fv-row'>
+							<label className='form-label fw-bold fs-5 mb-3'>
+								Age Range
+							</label>
+							{/* <label className='form-check form-check-solid'>
+								<input
+									className='form-check-input'
+									name='communication[]'
+									type='checkbox'
+									defaultChecked={false}
+									onChange={() => {}}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									18 and Above
+								</span>
+							</label> */}
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='ageRange'
+									type='checkbox'
+									value='18 and Above'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									18 and Above
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='ageRange'
+									type='checkbox'
+									value='18 - 25'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									18 - 25
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='ageRange'
+									type='checkbox'
+									value='25 - 40'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									25 - 40
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='ageRange'
+									type='checkbox'
+									value={'40 - 55'}
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									40 - 55
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='ageRange'
+									type='checkbox'
+									value='55 and above'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									55 and above
+								</span>
+							</label>
+						</div>
+						<div className='col-lg-3 fv-row'>
+							<label className='form-label fw-bold fs-5 mb-3'>
+								Occupation
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='occupation'
+									type='checkbox'
+									value='Student'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Student
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='occupation'
+									type='checkbox'
+									value='Service'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Service
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='occupation'
+									type='checkbox'
+									value='Self-Employed'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Self-Employed
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='occupation'
+									type='checkbox'
+									value='Business'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Business
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='occupation'
+									type='checkbox'
+									value='Unemployed'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Unemployed
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='occupation'
+									type='checkbox'
+									value='Retired'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Retired
+								</span>
+							</label>
+						</div>
+						<div className='col-lg-3 fv-row'>
+							<label className='form-label fw-bold fs-5 mb-3'>
+								Income Range
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='incomeRange'
+									type='checkbox'
+									value='less Than 3 Lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Less Than 3 Lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='incomeRange'
+									type='checkbox'
+									value='INR. 1 lac - INR 3 lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									INR. 1 lac - INR 3 lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='incomeRange'
+									type='checkbox'
+									value='INR. 3 lacs - 8 lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									INR. 3 lacs - 8 lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='incomeRange'
+									type='checkbox'
+									value='INR 8 lacs - 15 Lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									INR 8 lacs - 15 Lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='incomeRange'
+									type='checkbox'
+									value='15 Lacs and Above'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									15 Lacs and Above
+								</span>
+							</label>
+						</div>
+						<div className='col-lg-3 fv-row'>
+							<label className='form-label fw-bold fs-5 mb-3'>
+								Car Price Range
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='carPriceRange'
+									type='checkbox'
+									value='Less than INR. 3 lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Less than INR. 3 lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='carPriceRange'
+									type='checkbox'
+									value='INR. 3 lacs - INR. 5 lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									INR. 3 lacs - INR. 5 lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='carPriceRange'
+									type='checkbox'
+									value='INR. 5 lacs - INR. 10 lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									INR. 5 lacs - INR. 10 lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='carPriceRange'
+									type='checkbox'
+									value='INR. 10 lacs - INR. 15 lacs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									INR. 10 lacs - INR. 15
+									lacs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='carPriceRange'
+									type='checkbox'
+									value='INR. 15 lacs and above'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									INR. 15 lacs and above
+								</span>
+							</label>
+						</div>
+						<div className='col-lg-3 fv-row'>
+							<label className='form-label fw-bold fs-5 mb-3'>
+								Interest Areas
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='interestAreas'
+									type='checkbox'
+									value='Science'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Science
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='interestAreas'
+									type='checkbox'
+									value='Healthcare'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Healthcare
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='interestAreas'
+									type='checkbox'
+									value='Current Affairs'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Current Affairs
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='interestAreas'
+									type='checkbox'
+									value='Sports'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Sports
+								</span>
+							</label>
+							<label className='form-check form-check-solid'>
+								<Field
+									className='form-check-input'
+									name='interestAreas'
+									type='checkbox'
+									value='Fashion and Entertainment'
+									// defaultChecked={false}
+								/>
+								<span className='fw-bold ps-2 fs-6'>
+									Fashion and Entertainment
+								</span>
+							</label>
+						</div>
+					</div>
+				) : (
+					<div></div>
+				)}
+
+				{/* <div className='row' style={{marginTop:20}}>
+        <div className='col-lg-10 fv-row'>
+          <div className='mb-4'>
+            <label className='form-label mb-3'>Industry Selection</label>
+
+            <select
+                  className='form-select form-select-solid form-select-lg'
+                  // {...formik.getFieldProps('language')}
+                >
+                  <option value=''>Select a Industry...</option>
+                  <option value='id'>Information Technology</option>
+                  <option value='msa'>Mechanical</option>
+                  <option value='ca'>Electrical</option>
+                  <option value='cs'>Electronics</option>
+                  <option value='da'>Chemicals</option>
+                  
+            
+                </select>
+          </div>
+        </div>
+        </div> */}
+			</div>
+		</div>
+	);
+};
+
+export { ProductSetup };

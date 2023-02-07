@@ -1,0 +1,42 @@
+
+figure {
+    display: inline;
+    margin-top: 14px;
+
+  }
+figcaption {
+    display: inline;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 1em;
+    border: thin silver solid #eeeeee;
+    border-radius: 0.2em;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #eeeeee;
+    color: #000;
+
+  }
+
+ li.nav-item-mega {
+    position: relative;
+    list-style-type: none;
+    padding-top: 16px;
+    padding-left: 8px;
+}
+
+a.nav-link-mega {  
+    font-size     : 14px;
+    color         : #555555;
+    text-transform: capitalize;
+    margin-right  : 0;
+    font-weight   : 400;
+    /* border-bottom : 1px solid #eeeeee; */
+}
+
+a.nav-link-mega:hover{
+    color: #00a76a;
+    border-bottom : 1px solid #00a76a;
+}
