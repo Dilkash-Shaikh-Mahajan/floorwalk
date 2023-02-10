@@ -6,8 +6,14 @@ import { BreadcrumbBox } from '../../components/common/Breadcrumb';
 import Footer from '../../components/Footer';
 import { Styles } from './styles/account.js';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	accessTokenFunction,
+	refreshTokenFunction,
+} from '../../store/actions/Auth';
 function Login() {
 	let history = useHistory();
+	const dispatch = useDispatch();
 	const backendURL = `http://54.147.49.251/api`;
 	useEffect(() => {
 		const form = document.getElementById('form_login');
@@ -34,16 +40,6 @@ function Login() {
 				setSuccess(password);
 			}
 
-			// const formData = {
-			// 	email: userValue,
-			// 	first_name: fnameValue,
-			// 	last_name: lnameValue,
-			// 	company: companyNameValue,
-			// 	phone_number: mobileValue,
-			// 	password: passwordValue,
-			// 	password2: cpasswordValue,
-			// };
-			// console.log(formData);
 			let config = {
 				headers: {
 					'Content-Type': 'application/json',
@@ -58,9 +54,14 @@ function Login() {
 					email: userValue,
 					password: passwordValue,
 				},
-				// config,
 			);
 			if (registerData.status === 200) {
+				dispatch(
+					refreshTokenFunction(registerData.data.refresh),
+				);
+				dispatch(
+					accessTokenFunction(registerData.data.refresh),
+				);
 				sessionStorage.setItem(
 					'refressToken',
 					registerData.data.refresh,

@@ -12,7 +12,7 @@ export default class MainLayout extends Component {
 				marginLeft: '10px',
 				width: '100%',
 				// padding: '20%',
-				backgroundColor: '#EBEBEB',
+				backgroundColor: '#f5f5f5',
 			},
 		};
 		return (

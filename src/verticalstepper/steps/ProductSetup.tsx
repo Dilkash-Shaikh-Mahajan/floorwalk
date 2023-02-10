@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { KTSVG } from '../helpers';
 import { Field, ErrorMessage } from 'formik';
 import { Row, Col, Container } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 type Props = {
 	audiencePreference?: boolean;
 	setAudiencePreference: (boolean: boolean) => void;
@@ -10,6 +11,9 @@ const ProductSetup: FC<Props> = ({
 	audiencePreference,
 	setAudiencePreference,
 }: Props) => {
+	const { interestArea, industriesData } = useSelector(
+		(store: any) => store.stepper,
+	);
 	return (
 		<div className='w-100'>
 			<div className='pb-10 pb-lg-15'>
@@ -85,22 +89,15 @@ const ProductSetup: FC<Props> = ({
 					name='businessType'
 					className='form-select form-select-lg form-select-solid'>
 					<option></option>
-					<option value='S Corporation'>
-						S Corporation
-					</option>
-					<option value='C Corporation'>
-						C Corporation
-					</option>
-					<option value='Sole Proprietorship'>
-						Sole Proprietorship
-					</option>
-					<option value='Non-profit'>Non-profit</option>
-					<option value='Limited Liability'>
-						Limited Liability
-					</option>
-					<option value='General Partnership'>
-						General Partnership
-					</option>
+					{industriesData.map(
+						(industry: any, i: number) => (
+							<option
+								key={i}
+								value={industry.industry_name}>
+								{industry.industry_name}
+							</option>
+						),
+					)}
 				</Field>
 				<div className='text-danger mt-2'>
 					<ErrorMessage name='businessType' />
@@ -493,66 +490,28 @@ const ProductSetup: FC<Props> = ({
 							<label className='form-label fw-bold fs-5 mb-3'>
 								Interest Areas
 							</label>
-							<label className='form-check form-check-solid'>
-								<Field
-									className='form-check-input'
-									name='interestAreas'
-									type='checkbox'
-									value='Science'
-									// defaultChecked={false}
-								/>
-								<span className='fw-bold ps-2 fs-6'>
-									Science
-								</span>
-							</label>
-							<label className='form-check form-check-solid'>
-								<Field
-									className='form-check-input'
-									name='interestAreas'
-									type='checkbox'
-									value='Healthcare'
-									// defaultChecked={false}
-								/>
-								<span className='fw-bold ps-2 fs-6'>
-									Healthcare
-								</span>
-							</label>
-							<label className='form-check form-check-solid'>
-								<Field
-									className='form-check-input'
-									name='interestAreas'
-									type='checkbox'
-									value='Current Affairs'
-									// defaultChecked={false}
-								/>
-								<span className='fw-bold ps-2 fs-6'>
-									Current Affairs
-								</span>
-							</label>
-							<label className='form-check form-check-solid'>
-								<Field
-									className='form-check-input'
-									name='interestAreas'
-									type='checkbox'
-									value='Sports'
-									// defaultChecked={false}
-								/>
-								<span className='fw-bold ps-2 fs-6'>
-									Sports
-								</span>
-							</label>
-							<label className='form-check form-check-solid'>
-								<Field
-									className='form-check-input'
-									name='interestAreas'
-									type='checkbox'
-									value='Fashion and Entertainment'
-									// defaultChecked={false}
-								/>
-								<span className='fw-bold ps-2 fs-6'>
-									Fashion and Entertainment
-								</span>
-							</label>
+							{interestArea.map(
+								(interest: any, i: any) => (
+									<label
+										className='form-check form-check-solid'
+										key={i}>
+										<Field
+											className='form-check-input'
+											name='interestAreas'
+											type='checkbox'
+											value={
+												interest.interest_area_name
+											}
+											// defaultChecked={false}
+										/>
+										<span className='fw-bold ps-2 fs-6'>
+											{
+												interest.interest_area_name
+											}
+										</span>
+									</label>
+								),
+							)}
 						</div>
 					</div>
 				) : (

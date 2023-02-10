@@ -15,9 +15,16 @@ import {
 import './sass/style.scss';
 import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
-
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	industriesDataFunction,
+	interestAreaFunction,
+} from './../store/actions/Stepper';
+import RegistrationStepper from './steps/RegistrationStepper';
 const Vertical = () => {
 	const history = useHistory();
+	const dispatch = useDispatch();
 	const [audiencePreference, setAudiencePreference] = useState(false);
 	const stepperRef = useRef<HTMLDivElement | null>(null);
 	const stepper = useRef<StepperComponent | null>(null);
@@ -33,7 +40,23 @@ const Vertical = () => {
 			stepperRef.current as HTMLDivElement,
 		);
 	};
-
+	const getIndustriesData = async () => {
+		const responseData = await axios.get(
+			'http://54.147.49.251/api/industries/',
+		);
+		dispatch(industriesDataFunction(responseData.data));
+	};
+	const getInterestAreaData = async () => {
+		const responseData = await axios.get(
+			'http://54.147.49.251/api/interestarea/',
+			// config,
+		);
+		dispatch(interestAreaFunction(responseData.data));
+	};
+	useEffect(() => {
+		getInterestAreaData();
+		getIndustriesData();
+	}, [stepper]);
 	const prevStep = () => {
 		if (!stepper.current) {
 			return;
@@ -55,11 +78,7 @@ const Vertical = () => {
 		sessionStorage.setItem('startDate', values.startDate);
 		sessionStorage.setItem('endDate', values.endDate);
 		sessionStorage.setItem('businessType', values.businessType);
-		// sessionStorage.setItem('storeAddress', values.storeAddress);
-		// sessionStorage.setItem('storeCity', values.storeCity);
-		// sessionStorage.setItem('storeName', values.storeName);
-		// sessionStorage.setItem('storePostal', values.storePostal);
-		// sessionStorage.setItem('storeState', values.storeState);
+
 		let valueAgeRange = values?.ageRange?.toString();
 		let valueOccupation = values?.occupation?.toString();
 		let valueIncomeRange = values?.incomeRange?.toString();
@@ -95,11 +114,7 @@ const Vertical = () => {
 			actions.resetForm();
 		}
 	};
-	useEffect(() => {
-		if (stepper.current?.currentStepIndex === 5) {
-			if (!isAuth) return history.push('/login');
-		}
-	});
+
 	//click on continue button or back button this useeffect will work
 	useEffect(() => {
 		const topBtn: any = document.querySelector('.continueButtonTop');
@@ -320,7 +335,6 @@ const Vertical = () => {
 									{/* end::Line*/}
 								</div>
 								{/* end::Step 4*/}
-
 								{/* begin::Step 5*/}
 								<div
 									className='stepper-item'
@@ -339,6 +353,41 @@ const Vertical = () => {
 										{/* begin::Label*/}
 										<div className='stepper-label'>
 											<h3 className='stepper-title'>
+												Registration
+											</h3>
+											<div className='stepper-desc fw-semibold'>
+												Users
+												Related
+												Info
+											</div>
+										</div>
+										{/* end::Label*/}
+									</div>
+									{/* end::Wrapper*/}
+									{/* begin::Line*/}
+									<div className='stepper-line h-40px'></div>
+									{/* end::Line*/}
+								</div>
+								{/* end::Step 5*/}
+
+								{/* begin::Step 6*/}
+								<div
+									className='stepper-item'
+									data-kt-stepper-element='nav'>
+									{/* begin::Wrapper*/}
+									<div className='stepper-wrapper'>
+										{/* begin::Icon*/}
+										<div className='stepper-icon w-40px h-40px'>
+											<i className='stepper-check fas fa-check'></i>
+											<span className='stepper-number'>
+												6
+											</span>
+										</div>
+										{/* end::Icon*/}
+
+										{/* begin::Label*/}
+										<div className='stepper-label'>
+											<h3 className='stepper-title'>
 												Payment
 											</h3>
 											<div className='stepper-desc fw-semibold'>
@@ -350,7 +399,7 @@ const Vertical = () => {
 									</div>
 									{/* end::Wrapper*/}
 								</div>
-								{/* end::Step 5*/}
+								{/* end::Step 6*/}
 							</div>
 							{/* end::Nav*/}
 						</div>
@@ -422,6 +471,9 @@ const Vertical = () => {
 										/>
 									</div>
 
+									<div data-kt-stepper-element='content'>
+										<RegistrationStepper />
+									</div>
 									<div data-kt-stepper-element='content'>
 										<Payment />
 									</div>

@@ -45,21 +45,19 @@ const Sidebar = () => {
 							</CDBSidebarMenuItem>
 						</Link>
 
-						<CDBBox tag='p'>
-							<h1
-								style={{
-									color: 'inherit',
-									fontSize: 14,
-									fontWeight: 800,
-									// fontFamily: 'Montserrat',
-									lineHeight: '17px',
-									paddingLeft: '35px',
-									color: '#B5C7CF',
-									textTransform:
-										'uppercase',
-								}}>
-								Analyse
-							</h1>
+						<CDBBox
+							tag='p'
+							style={{
+								color: 'inherit',
+								fontSize: 14,
+								fontWeight: 800,
+								// fontFamily: 'Montserrat',
+								lineHeight: '17px',
+								paddingLeft: '35px',
+								color: '#B5C7CF',
+								textTransform: 'uppercase',
+							}}>
+							Analyse
 						</CDBBox>
 						<Link
 							to={

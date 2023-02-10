@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import HeaderTwo from '../../components/HeaderTwo';
 import { BreadcrumbBox } from '../../components/common/Breadcrumb';
@@ -7,6 +7,8 @@ import Footer from '../../components/Footer';
 import { Styles } from './styles/account.js';
 import axios from 'axios';
 function Register() {
+	let history = useHistory();
+
 	const backendURL = `http://54.147.49.251`;
 	useEffect(() => {
 		const form = document.getElementById('form_registration');
@@ -90,7 +92,7 @@ function Register() {
 				},
 			};
 			console.log(formData);
-			axios.post(
+			const registerData = await axios.post(
 				`${backendURL}/register`,
 				{
 					email: emailValue,
@@ -102,13 +104,11 @@ function Register() {
 					password2: cpasswordValue,
 				},
 				// config,
-			)
-				.then((res) => {
-					console.log(res);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+			);
+			console.log(registerData);
+			if (registerData.status === 201) {
+				history.push('/login');
+			}
 		}
 
 		function setError(input, message) {

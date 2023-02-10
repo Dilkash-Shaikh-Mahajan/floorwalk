@@ -3,6 +3,7 @@ import { FC, useEffect } from 'react';
 import { KTSVG } from '../helpers';
 import { Field, ErrorMessage } from 'formik';
 import React from 'react';
+import { Link } from 'react-router-dom';
 const Payment: FC = () => {
 	return (
 		<div className='w-100'>
@@ -15,15 +16,27 @@ const Payment: FC = () => {
 						title='Billing is issued based on your selected account type'></i>
 				</h2>
 
-				<div className='text-gray-400 fw-bold fs-6'>
-					If you need more info, please check out
-					<a
-						href='/dashboard'
-						className='link-primary fw-bolder'>
-						{' '}
-						Help Page
-					</a>
-					.
+				<div className='d-flex justify-content-between'>
+					<div className='text-gray-400 fw-bold fs-6'>
+						If you need more info, please check out
+						<a
+							href='/dashboard'
+							className='link-primary fw-bolder'>
+							{' '}
+							Help Page
+						</a>
+						.
+					</div>
+					<div className='login'>
+						<h4 className='text-gray-400 fw-bold fs-6'>
+							Already Have't Account{' '}
+							<Link
+								className='text-blue-300 fw-bold fs-6'
+								to='/login'>
+								Login
+							</Link>
+						</h4>
+					</div>
 				</div>
 			</div>
 
