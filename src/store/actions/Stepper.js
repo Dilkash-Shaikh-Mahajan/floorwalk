@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	interestArea: '',
-	industriesData: '',
+	interestArea: [],
+	industriesData: [],
+	categoriesData: [],
+	subCategories: [],
 };
 
 export const stepperSlice = createSlice({
@@ -15,11 +17,21 @@ export const stepperSlice = createSlice({
 		industriesDataFunction: (state, action) => {
 			state.industriesData = action.payload;
 		},
+		categoriesDataFunction: (state, action) => {
+			state.categoriesData = action.payload;
+		},
+		subCategoriesFunction: (state, action) => {
+			state.subCategories = action.payload;
+		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { interestAreaFunction, industriesDataFunction } =
-	stepperSlice.actions;
+export const {
+	interestAreaFunction,
+	industriesDataFunction,
+	categoriesDataFunction,
+	subCategoriesFunction,
+} = stepperSlice.actions;
 
 export default stepperSlice.reducer;

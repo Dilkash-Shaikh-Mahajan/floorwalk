@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import HeaderTwo from '../../components/HeaderTwo';
 import { BreadcrumbBox } from '../../components/common/Breadcrumb';
@@ -13,6 +13,8 @@ import {
 } from '../../store/actions/Auth';
 function Login() {
 	let history = useHistory();
+	let location = useLocation();
+	console.log(location);
 	const dispatch = useDispatch();
 	const backendURL = `http://54.147.49.251/api`;
 	useEffect(() => {
@@ -70,7 +72,15 @@ function Login() {
 					'accessToken',
 					registerData.data.access,
 				);
-				history.push('/');
+				if (location.state.prev == 'stepperReg') {
+					history.push({
+						pathname: '/stepper',
+
+						state: { prev: 'login' },
+					});
+				} else {
+					history.push('/');
+				}
 			}
 			console.log(registerData);
 		}

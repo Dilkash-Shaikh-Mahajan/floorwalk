@@ -78,7 +78,11 @@ const RegistrationStepper = () => {
 						Already Have't Account{' '}
 						<Link
 							className='text-blue-300 fw-bold fs-6'
-							to='/login'>
+							to={{
+								pathname: '/login',
+
+								state: { prev: 'stepperReg' },
+							}}>
 							Login
 						</Link>
 					</h4>

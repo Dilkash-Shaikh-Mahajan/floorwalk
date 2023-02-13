@@ -89,7 +89,7 @@ const ProductSetup: FC<Props> = ({
 					name='businessType'
 					className='form-select form-select-lg form-select-solid'>
 					<option></option>
-					{industriesData.map(
+					{industriesData?.map(
 						(industry: any, i: number) => (
 							<option
 								key={i}
@@ -490,7 +490,7 @@ const ProductSetup: FC<Props> = ({
 							<label className='form-label fw-bold fs-5 mb-3'>
 								Interest Areas
 							</label>
-							{interestArea.map(
+							{interestArea?.map(
 								(interest: any, i: any) => (
 									<label
 										className='form-check form-check-solid'

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import HeaderTwo from './components/HeaderTwo';
 import HeroImage from './components/HeroImage';
 import ServiceBox from './components/ServiceBox';
@@ -15,65 +15,105 @@ import HomeBlog from './components/HomeBlog';
 import ImageGallery from './components/ImageGallery';
 import FooterTwo from './components/FooterTwo';
 import Footer from './components/Footer';
+import {
+	categoriesDataFunction,
+	industriesDataFunction,
+	interestAreaFunction,
+	subCategoriesFunction,
+} from './store/actions/Stepper';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
-export default class HomeTwo extends Component {
-    render() {
-        return (
-            <div className="main-wrapper">
+const HomeTwo = () => {
+	const dispatch = useDispatch();
+	const getIndustriesData = async () => {
+		const responseData = await axios.get(
+			'http://54.147.49.251/api/industries/',
+		);
+		dispatch(industriesDataFunction(responseData.data));
+	};
 
-                {/* Header 2 */}
-                <HeaderTwo />
+	const getInterestAreaData = async () => {
+		const responseData = await axios.get(
+			'http://54.147.49.251/api/interestarea/',
+			// config,
+		);
+		dispatch(interestAreaFunction(responseData.data));
+	};
+	const getCategoriesData = async () => {
+		const responseData = await axios.get(
+			'http://54.147.49.251/api/categories/',
+		);
+		dispatch(categoriesDataFunction(responseData.data));
+	};
+	const getSubCategoriesData = async () => {
+		const responseData = await axios.get(
+			'http://54.147.49.251/api/subcategories/',
+			// config,
+		);
+		dispatch(subCategoriesFunction(responseData.data));
+	};
 
-                {/* Hero Image */}
-                <HeroImage />
+	useEffect(() => {
+		getInterestAreaData();
+		getIndustriesData();
+		getCategoriesData();
+		getSubCategoriesData();
+	});
+	return (
+		<div className='main-wrapper'>
+			{/* Header 2 */}
+			<HeaderTwo />
 
-                {/* Service Box */}
-                <ServiceBox />
+			{/* Hero Image */}
+			<HeroImage />
 
-                {/* Course Filter */}
-                < CourseFilter />
+			{/* Service Box */}
+			<ServiceBox />
 
-                {/* About Us 2 
+			{/* Course Filter */}
+			<CourseFilter />
+
+			{/* About Us 2 
                 <AboutUsTwo />*/}
 
-                {/* Course Filter */}
-                 <CourseFilterBottom />
-               
+			{/* Course Filter */}
+			<CourseFilterBottom />
 
-                {/* Course Slider 
+			{/* Course Slider 
                 <CourseSlider />*/}
 
-                {/* Counter Area */}
-                <NumberCounter />
+			{/* Counter Area */}
+			<NumberCounter />
 
-                {/* About Area */}
-                < AboutUs />
+			{/* About Area */}
+			<AboutUs />
 
-                {/* Testimonial Slider */}
-                < TestimonialSlider />
+			{/* Testimonial Slider */}
+			<TestimonialSlider />
 
-                {/* Free Course Area */}
-                <FreeCourse />
+			{/* Free Course Area */}
+			<FreeCourse />
 
-                {/* Team Slider 
+			{/* Team Slider 
                 <TeamSlider />*/}
 
-                {/* Testimonial Slider 
+			{/* Testimonial Slider 
                 <TestimonialSlider />*/}
 
-                {/* Blog Area 
+			{/* Blog Area 
                 <HomeBlog />*/}
 
-                {/* Image Gallery Area 
+			{/* Image Gallery Area 
                 <ImageGallery />*/}
 
-                {/* Footer 2 
+			{/* Footer 2 
                 <FooterTwo />*/}
 
-                {/* Footer */}
-                < Footer />
+			{/* Footer */}
+			<Footer />
+		</div>
+	);
+};
 
-            </div>
-        )
-    }
-}
+export default HomeTwo;

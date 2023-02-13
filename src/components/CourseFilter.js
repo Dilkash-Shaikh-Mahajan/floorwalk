@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Datas from '../data/course/filter.json';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Styles } from './styles/courseFilter.js';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { subCategoriesFunction } from '../store/actions/Stepper';
 
 function CourseFilter() {
+	const dispatch = useDispatch();
+	const history = useHistory();
+	console.log(history);
+	let location = useLocation();
+	console.log(location);
+	const { subCategories } = useSelector((store) => store.stepper);
+	// const [subCategories, setSubCategories] = useState('');
 	const [dataList, setDataList] = useState(
 		Datas.dataList.filter(function (data) {
-			return data.targetId === 'Non-Purchase';
+			return data.targetId === 'Non Purchase';
 		}),
 	);
 
@@ -59,26 +69,23 @@ function CourseFilter() {
 						<Col md='12'>
 							<div className='filter-btns text-center'>
 								<ul className='filter-btn-list list-unstyled list inline'>
-									<li
-										data-target='Non-Purchase'
-										className='active list-inline-item'>
-										Non Purchase
-									</li>
-									<li
-										data-target='Purchase'
-										className='list-inline-item'>
-										Purchase
-									</li>
-									<li
-										data-target='Web-Telphonic'
-										className='list-inline-item'>
-										Web & Telphonic
-									</li>
-									<li
-										data-target='Telephonic'
-										className='list-inline-item'>
-										Telephonic
-									</li>
+									{subCategories?.map(
+										(
+											subCategory,
+											i,
+										) => (
+											<li
+												key={i}
+												data-target={
+													subCategory.sub_category_name
+												}
+												className='active list-inline-item'>
+												{
+													subCategory.sub_category_name
+												}
+											</li>
+										),
+									)}
 								</ul>
 							</div>
 							<Row className='filter-items'>

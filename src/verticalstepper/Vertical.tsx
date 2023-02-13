@@ -14,7 +14,7 @@ import {
 } from './CreateAccountWizardHelper';
 import './sass/style.scss';
 import clsx from 'clsx';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -25,9 +25,10 @@ import RegistrationStepper from './steps/RegistrationStepper';
 const Vertical = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
+	let location: any = useLocation();
 	const [audiencePreference, setAudiencePreference] = useState(false);
 	const stepperRef = useRef<HTMLDivElement | null>(null);
-	const stepper = useRef<StepperComponent | null>(null);
+	const stepper = useRef<StepperComponent | any>(null);
 	const [currentSchema, setCurrentSchema] = useState(
 		createAccountSchemas[0],
 	);
@@ -40,23 +41,7 @@ const Vertical = () => {
 			stepperRef.current as HTMLDivElement,
 		);
 	};
-	const getIndustriesData = async () => {
-		const responseData = await axios.get(
-			'http://54.147.49.251/api/industries/',
-		);
-		dispatch(industriesDataFunction(responseData.data));
-	};
-	const getInterestAreaData = async () => {
-		const responseData = await axios.get(
-			'http://54.147.49.251/api/interestarea/',
-			// config,
-		);
-		dispatch(interestAreaFunction(responseData.data));
-	};
-	useEffect(() => {
-		getInterestAreaData();
-		getIndustriesData();
-	}, [stepper]);
+
 	const prevStep = () => {
 		if (!stepper.current) {
 			return;
@@ -168,7 +153,11 @@ const Vertical = () => {
 
 		loadStepper();
 	}, [stepperRef]);
-
+	useEffect(() => {
+		if (location?.state?.prev == 'login') {
+			stepper.current.goto(6);
+		}
+	}, []);
 	return (
 		<div
 			className={clsx('app-content flex-column-fluid')}
