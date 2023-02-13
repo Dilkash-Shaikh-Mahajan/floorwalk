@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Styles } from './style';
 import toast, { Toaster } from 'react-hot-toast';
 import { StepperComponent } from '../components';
-const RegistrationStepper = () => {
+const RegistrationStepper = ({ stepper }) => {
 	let history = useHistory();
 
 	const [firstName, setFirstName] = useState('');
@@ -16,7 +16,7 @@ const RegistrationStepper = () => {
 	const [cpassword, setCPassword] = useState('');
 	const [error, setError] = useState('');
 	let errorEmail;
-	const backendURL = `http://54.147.49.251`;
+	const backendURL = `http://54.147.49.251/api`;
 	async function formSubmit(e) {
 		e.preventDefault();
 
@@ -45,7 +45,7 @@ const RegistrationStepper = () => {
 			console.log(registerData);
 			if (registerData.status === 201) {
 				console.log('rvdfvdf');
-				StepperComponent.hasInstace(6);
+				stepper.current.goNext();
 			}
 		} catch (error) {
 			if (error.response.status === 400) {

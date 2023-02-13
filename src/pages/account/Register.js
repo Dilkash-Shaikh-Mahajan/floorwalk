@@ -9,7 +9,7 @@ import axios from 'axios';
 function Register() {
 	let history = useHistory();
 
-	const backendURL = `http://54.147.49.251`;
+	const backendURL = `http://54.147.49.251/api`;
 	useEffect(() => {
 		const form = document.getElementById('form_registration');
 		const fname = document.getElementById('registration_fname');

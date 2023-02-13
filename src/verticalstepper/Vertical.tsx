@@ -461,7 +461,11 @@ const Vertical = () => {
 									</div>
 
 									<div data-kt-stepper-element='content'>
-										<RegistrationStepper />
+										<RegistrationStepper
+											stepper={
+												stepper
+											}
+										/>
 									</div>
 									<div data-kt-stepper-element='content'>
 										<Payment />

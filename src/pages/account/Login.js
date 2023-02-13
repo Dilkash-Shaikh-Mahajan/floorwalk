@@ -72,7 +72,7 @@ function Login() {
 					'accessToken',
 					registerData.data.access,
 				);
-				if (location.state.prev == 'stepperReg') {
+				if (location?.state?.prev == 'stepperReg') {
 					history.push({
 						pathname: '/stepper',
 

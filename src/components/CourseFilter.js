@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Datas from '../data/course/filter.json';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Styles } from './styles/courseFilter.js';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { subCategoriesFunction } from '../store/actions/Stepper';
+import { useSelector } from 'react-redux';
 
 function CourseFilter() {
-	const dispatch = useDispatch();
-	const history = useHistory();
-	console.log(history);
-	let location = useLocation();
-	console.log(location);
 	const { subCategories } = useSelector((store) => store.stepper);
 	// const [subCategories, setSubCategories] = useState('');
 	const [dataList, setDataList] = useState(
