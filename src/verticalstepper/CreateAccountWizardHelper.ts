@@ -36,13 +36,13 @@ const createAccountSchemas = [
 	// 	storeState: Yup.string().required().label('State'),
 	// 	storePostal: Yup.string().required().label('Postal'),
 	// }),
-	Yup.object({
-		storeName: Yup.string().required().label('Store Name'),
-		storeAddress: Yup.string().required().label('Address'),
-		storeCity: Yup.string().required().label('City'),
-		storeState: Yup.string().required().label('State'),
-		storePostal: Yup.string().required().label('Postal'),
-	}),
+	// Yup.object({
+	// 	storeName: Yup.string().required().label('Store Name'),
+	// 	storeAddress: Yup.string().required().label('Address'),
+	// 	storeCity: Yup.string().required().label('City'),
+	// 	storeState: Yup.string().required().label('State'),
+	// 	storePostal: Yup.string().required().label('Postal'),
+	// }),
 	Yup.object({
 		nameOnCard: Yup.string().required().label('Name On Card'),
 		cardNumber: Yup.string().required().label('Card Number'),

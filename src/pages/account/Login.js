@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	accessTokenFunction,
 	refreshTokenFunction,
+	setLoggedUser,
 } from '../../store/actions/Auth';
 function Login() {
 	let history = useHistory();
@@ -64,6 +65,7 @@ function Login() {
 				dispatch(
 					accessTokenFunction(registerData.data.refresh),
 				);
+				dispatch(setLoggedUser(registerData.data));
 				sessionStorage.setItem(
 					'refressToken',
 					registerData.data.refresh,

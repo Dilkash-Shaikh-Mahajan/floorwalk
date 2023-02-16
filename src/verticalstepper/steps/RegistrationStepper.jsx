@@ -64,7 +64,7 @@ const RegistrationStepper = ({ stepper }) => {
 	}
 
 	return (
-		<div className='w-100'>
+		<div>
 			<Toaster
 				position='top-right'
 				reverseOrder={false}
@@ -95,7 +95,7 @@ const RegistrationStepper = ({ stepper }) => {
 			</div>
 			<Styles>
 				<div id='form_registration' className='form'>
-					<div className='row'>
+					<div className='row w-100'>
 						<div className='formGroup col-md-6'>
 							<p className='form-control'>
 								<label htmlFor='registration_fname'>

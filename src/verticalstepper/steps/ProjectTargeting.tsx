@@ -9,7 +9,6 @@ import {
 	projectTargetInit,
 	projectTargetSchema,
 } from '../CreateAccountWizardHelper';
-import { Toaster } from 'react-hot-toast';
 
 // let storeSecondAddress: any = [];
 type Props = {
@@ -50,15 +49,6 @@ const ProductTargeting: FC<Props> = ({
 	};
 	return (
 		<div className='w-100'>
-			<Toaster
-				position='top-right'
-				reverseOrder={false}
-				toastOptions={{
-					style: {
-						fontSize: '14px',
-					},
-				}}
-			/>
 			<div className='pb-10 pb-lg-12'>
 				<h2 className='fw-bolder text-dark'>
 					Project Targeting
@@ -135,6 +125,22 @@ const ProductTargeting: FC<Props> = ({
 								<div className='fv-row mb-10'>
 									<label className='d-flex align-items-center form-label'>
 										<span className='required'>
+											PostalCode
+										</span>
+									</label>
+
+									<Field
+										name='storePostal'
+										type='number'
+										className='form-control form-control-lg form-control-solid'
+									/>
+									<div className='text-danger mt-2'>
+										<ErrorMessage name='storePostal' />
+									</div>
+								</div>
+								<div className='fv-row mb-10'>
+									<label className='d-flex align-items-center form-label'>
+										<span className='required'>
 											City
 										</span>
 									</label>
@@ -164,22 +170,6 @@ const ProductTargeting: FC<Props> = ({
 									</div>
 								</div>
 
-								<div className='fv-row mb-10'>
-									<label className='d-flex align-items-center form-label'>
-										<span className='required'>
-											PostalCode
-										</span>
-									</label>
-
-									<Field
-										name='storePostal'
-										type='number'
-										className='form-control form-control-lg form-control-solid'
-									/>
-									<div className='text-danger mt-2'>
-										<ErrorMessage name='storePostal' />
-									</div>
-								</div>
 								<button
 									type='submit'
 									onClick={() =>

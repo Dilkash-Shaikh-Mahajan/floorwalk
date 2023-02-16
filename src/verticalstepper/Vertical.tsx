@@ -15,9 +15,7 @@ import {
 import './sass/style.scss';
 import clsx from 'clsx';
 import { useHistory, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 
 import RegistrationStepper from './steps/RegistrationStepper';
 const Vertical = () => {
@@ -56,8 +54,20 @@ const Vertical = () => {
 		if (!stepper.current) {
 			return;
 		}
-		console.log(stepper);
-
+		if (stepper.current.currentStepIndex === 2) {
+			console.warn('vdvd', finalTargetData);
+			if (finalTargetData.length === 0) {
+				alert('Please Add Atleast one Store');
+				stepper.current.goPrev();
+			}
+		}
+		if (stepper.current.currentStepIndex === 3) {
+			console.warn('vdvd', finalTargetData);
+			if (finalFormData.length === 0) {
+				alert('Please Add Atleast one Store');
+				stepper.current.goPrev();
+			}
+		}
 		setInitValues(values);
 		sessionStorage.setItem('projectName', values.projectName);
 		sessionStorage.setItem('startDate', values.startDate);
@@ -162,15 +172,6 @@ const Vertical = () => {
 		<div
 			className={clsx('app-content flex-column-fluid')}
 			style={{ backgroundColor: '#f5f8fa' }}>
-			<Toaster
-				position='top-right'
-				reverseOrder={false}
-				toastOptions={{
-					style: {
-						fontSize: '14px',
-					},
-				}}
-			/>
 			<div
 				id='kt_app_content_container'
 				className={clsx('app-container container-fluid')}>
