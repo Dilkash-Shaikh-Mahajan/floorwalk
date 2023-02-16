@@ -14,6 +14,11 @@ const RegistrationStepper = ({ stepper }) => {
 	const [company, setCompany] = useState('');
 	const [password, setPassword] = useState('');
 	const [cpassword, setCPassword] = useState('');
+	// const [address, setAddress] = useState('');
+	// const [city , setCity] = useState('');
+	// const [state, setState] = useState('');
+	// const [pincode, setPincode] = useState('');
+	// const [GSTNumber, setGSTNumber] = useState('');
 	const [error, setError] = useState('');
 	let errorEmail;
 	const backendURL = `http://54.147.49.251/api`;
@@ -89,128 +94,259 @@ const RegistrationStepper = ({ stepper }) => {
 				</div>
 			</div>
 			<Styles>
-				<form id='form_registration' className='form w-50'>
-					<div className='formGroup'>
-						<p className='form-control'>
-							<label htmlFor='registration_fname'>
-								First Name
-							</label>
-							<input
-								type='text'
-								placeholder='First name'
-								id='registration_fname'
-								value={firstName}
-								onChange={(e) =>
-									setFirstName(
-										e.target.value,
-									)
-								}
-							/>
-							<span className='registration_input-msg'></span>
-						</p>
+				<div id='form_registration' className='form'>
+					<div className='row'>
+						<div className='formGroup col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_fname'>
+									First Name
+								</label>
+								<input
+									type='text'
+									placeholder='First name'
+									id='registration_fname'
+									value={firstName}
+									onChange={(e) =>
+										setFirstName(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='formGroup col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_lname'>
+									Last Name
+								</label>
+								<input
+									type='text'
+									placeholder='Last name'
+									id='registration_lname'
+									value={lastName}
+									onChange={(e) =>
+										setLastName(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='col-md-6'>
+							<p className='form-control '>
+								<label htmlFor='registration_email'>
+									Work Email Address
+								</label>
+								<input
+									type='email'
+									placeholder='Work Email address'
+									id='registration_email'
+									value={email}
+									onChange={(e) =>
+										setEmail(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'>
+									{error}
+								</span>
+							</p>
+						</div>
+						<div className='col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_mobile'>
+									Mobile Number
+								</label>
+								<input
+									type='number'
+									placeholder='Mobile Number'
+									id='registration_mobile'
+									value={mobile}
+									onChange={(e) =>
+										setMobile(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='col-md-12'>
+							<p className='form-control'>
+								<label htmlFor='registration_compnay_name'>
+									Company Name
+								</label>
+								<input
+									type='text'
+									placeholder='Company Name'
+									id='registration_compnay_name'
+									value={company}
+									onChange={(e) =>
+										setCompany(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_password'>
+									Password
+								</label>
+								<input
+									type='password'
+									placeholder='*******'
+									id='registration_password'
+									value={password}
+									onChange={(e) =>
+										setPassword(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_cpassword'>
+									Confirm Password
+								</label>
+								<input
+									type='password'
+									placeholder='Confirm password'
+									id='registration_cpassword'
+									value={cpassword}
+									onChange={(e) =>
+										setCPassword(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						{/* <div className='col-md-6'>
+							<p className='form-control '>
+								<label htmlFor='registration_email'>
+									Address
+								</label>
+								<input
+									type='email'
+									placeholder='Work Email address'
+									id='registration_email'
+									value={email}
+									onChange={(e) =>
+										setEmail(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'>
+									{error}
+								</span>
+							</p>
+						</div>
+						<div className='col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_mobile'>
+									Mobile Number
+								</label>
+								<input
+									type='number'
+									placeholder='Mobile Number'
+									id='registration_mobile'
+									value={mobile}
+									onChange={(e) =>
+										setMobile(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='col-md-12'>
+							<p className='form-control'>
+								<label htmlFor='registration_compnay_name'>
+									Company Name
+								</label>
+								<input
+									type='text'
+									placeholder='Company Name'
+									id='registration_compnay_name'
+									value={company}
+									onChange={(e) =>
+										setCompany(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_password'>
+									Password
+								</label>
+								<input
+									type='password'
+									placeholder='*******'
+									id='registration_password'
+									value={password}
+									onChange={(e) =>
+										setPassword(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div>
+						<div className='col-md-6'>
+							<p className='form-control'>
+								<label htmlFor='registration_cpassword'>
+									Confirm Password
+								</label>
+								<input
+									type='password'
+									placeholder='Confirm password'
+									id='registration_cpassword'
+									value={cpassword}
+									onChange={(e) =>
+										setCPassword(
+											e.target
+												.value,
+										)
+									}
+								/>
+								<span className='registration_input-msg'></span>
+							</p>
+						</div> */}
 					</div>
-					<div className='formGroup'>
-						<p className='form-control'>
-							<label htmlFor='registration_lname'>
-								Last Name
-							</label>
-							<input
-								type='text'
-								placeholder='Last name'
-								id='registration_lname'
-								value={lastName}
-								onChange={(e) =>
-									setLastName(
-										e.target.value,
-									)
-								}
-							/>
-							<span className='registration_input-msg'></span>
-						</p>
-					</div>
-					<p className='form-control'>
-						<label htmlFor='registration_email'>
-							Work Email Address
-						</label>
-						<input
-							type='email'
-							placeholder='Work Email address'
-							id='registration_email'
-							value={email}
-							onChange={(e) =>
-								setEmail(e.target.value)
-							}
-						/>
-						<span className='registration_input-msg'>
-							{error}
-						</span>
-					</p>
-					<p className='form-control'>
-						<label htmlFor='registration_mobile'>
-							Mobile Number
-						</label>
-						<input
-							type='number'
-							placeholder='Mobile Number'
-							id='registration_mobile'
-							value={mobile}
-							onChange={(e) =>
-								setMobile(e.target.value)
-							}
-						/>
-						<span className='registration_input-msg'></span>
-					</p>
-					<p className='form-control'>
-						<label htmlFor='registration_compnay_name'>
-							Company Name
-						</label>
-						<input
-							type='text'
-							placeholder='Company Name'
-							id='registration_compnay_name'
-							value={company}
-							onChange={(e) =>
-								setCompany(e.target.value)
-							}
-						/>
-						<span className='registration_input-msg'></span>
-					</p>
-					<p className='form-control'>
-						<label htmlFor='registration_password'>
-							Password
-						</label>
-						<input
-							type='password'
-							placeholder='*******'
-							id='registration_password'
-							value={password}
-							onChange={(e) =>
-								setPassword(e.target.value)
-							}
-						/>
-						<span className='registration_input-msg'></span>
-					</p>
-					<p className='form-control'>
-						<label htmlFor='registration_cpassword'>
-							Confirm Password
-						</label>
-						<input
-							type='password'
-							placeholder='Confirm password'
-							id='registration_cpassword'
-							value={cpassword}
-							onChange={(e) =>
-								setCPassword(e.target.value)
-							}
-						/>
-						<span className='registration_input-msg'></span>
-					</p>
-					<button
+					{/* <button
 						type='button'
 						onClick={(e) => formSubmit(e)}>
 						Register Now
-					</button>
-				</form>
+					</button> */}
+				</div>
 			</Styles>
 		</div>
 	);

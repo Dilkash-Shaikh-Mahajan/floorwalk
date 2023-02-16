@@ -9,6 +9,7 @@ import {
 	projectTargetInit,
 	projectTargetSchema,
 } from '../CreateAccountWizardHelper';
+import { Toaster } from 'react-hot-toast';
 
 // let storeSecondAddress: any = [];
 type Props = {
@@ -43,41 +44,21 @@ const ProductTargeting: FC<Props> = ({
 			},
 		]);
 		storeSecondAddress.push(...storeMainAddress);
-		sessionStorage.setItem(
-			'storeData',
-			JSON.stringify(storeSecondAddress),
-		);
-		// console.log(storeMainAddress);
-		// const formData = new FormData();
-		// formData.append('storeAddress', values.storeAddress);
-		// formData.append('storeCity', values.storeCity);
-		// formData.append('storeName', values.storeName);
-		// formData.append('storePostal', values.storePostal);
-		// formData.append('storeState', values.storeState);
-		// sessionStorage.setItem('storeAddress', values.storeAddress);
-		// sessionStorage.setItem('storeCity', values.storeCity);
-		// sessionStorage.setItem('storeName', values.storeName);
-		// sessionStorage.setItem('storePostal', values.storePostal);
-		// storeAddressData.push({ ...storeData, ...values });
-		// setStoreData([{ ...storeData, ...values }]);
-		// setStoreData((prevState: { stores: any }) => ({
-		// 	stores: [...storeData.stores, values],
-		// }));
-		// let arrayString = sessionStorage.getItem('storeState');
-		// let arr: string[] | any = arrayString?.split(',');
-		// console.log(storeMainAddress)
-		// console.log();
-		// storeSecondAddress = [ ...values ];
-		// storeMainAddress = storeMainAddress.push(
-		// 	storeMainAddress,
-		// 	storeSecondAddress,
-		// );
 
 		let storeData: any = sessionStorage.getItem('storeData');
 		storeData = JSON.parse(storeData);
 	};
 	return (
 		<div className='w-100'>
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+				toastOptions={{
+					style: {
+						fontSize: '14px',
+					},
+				}}
+			/>
 			<div className='pb-10 pb-lg-12'>
 				<h2 className='fw-bolder text-dark'>
 					Project Targeting
@@ -221,12 +202,12 @@ const ProductTargeting: FC<Props> = ({
 			<Table bordered className='text-center table'>
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>Store Name</th>
-						<th>Store Address </th>
-						<th>City</th>
-						<th>State</th>
-						<th>Postal Code</th>
+						<th className='fw-bold'>SR No.</th>
+						<th className='fw-bold'>Store Name</th>
+						<th className='fw-bold'>Store Address </th>
+						<th className='fw-bold'>City</th>
+						<th className='fw-bold'>State</th>
+						<th className='fw-bold'>Postal Code</th>
 					</tr>
 				</thead>
 				<tbody>

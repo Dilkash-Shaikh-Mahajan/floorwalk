@@ -63,21 +63,36 @@ function CourseFilter() {
 							<div className='filter-btns text-center'>
 								<ul className='filter-btn-list list-unstyled list inline'>
 									{subCategories?.map(
-										(
-											subCategory,
-											i,
-										) => (
-											<li
-												key={i}
-												data-target={
-													subCategory.sub_category_name
-												}
-												className='active list-inline-item'>
-												{
-													subCategory.sub_category_name
-												}
-											</li>
-										),
+										(subCategory, i) =>
+											subCategory.category_name ===
+											'Audits' ? (
+												<li
+													key={
+														i
+													}
+													data-target={
+														subCategory.sub_category_name
+															.charAt(
+																0,
+															)
+															.toUpperCase() +
+														subCategory.sub_category_name.slice(
+															1,
+														)
+													}
+													className='active list-inline-item'>
+													{subCategory.sub_category_name
+														.charAt(
+															0,
+														)
+														.toUpperCase() +
+														subCategory.sub_category_name.slice(
+															1,
+														)}
+												</li>
+											) : (
+												''
+											),
 									)}
 								</ul>
 							</div>

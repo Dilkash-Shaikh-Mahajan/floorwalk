@@ -17,10 +17,8 @@ import clsx from 'clsx';
 import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	industriesDataFunction,
-	interestAreaFunction,
-} from './../store/actions/Stepper';
+import toast, { Toaster } from 'react-hot-toast';
+
 import RegistrationStepper from './steps/RegistrationStepper';
 const Vertical = () => {
 	const history = useHistory();
@@ -58,6 +56,8 @@ const Vertical = () => {
 		if (!stepper.current) {
 			return;
 		}
+		console.log(stepper);
+
 		setInitValues(values);
 		sessionStorage.setItem('projectName', values.projectName);
 		sessionStorage.setItem('startDate', values.startDate);
@@ -155,13 +155,22 @@ const Vertical = () => {
 	}, [stepperRef]);
 	useEffect(() => {
 		if (location?.state?.prev == 'login') {
-			stepper.current.goto(6);
+			stepper.current.goto(5);
 		}
 	}, []);
 	return (
 		<div
 			className={clsx('app-content flex-column-fluid')}
 			style={{ backgroundColor: '#f5f8fa' }}>
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+				toastOptions={{
+					style: {
+						fontSize: '14px',
+					},
+				}}
+			/>
 			<div
 				id='kt_app_content_container'
 				className={clsx('app-container container-fluid')}>
@@ -354,41 +363,9 @@ const Vertical = () => {
 									</div>
 									{/* end::Wrapper*/}
 									{/* begin::Line*/}
-									<div className='stepper-line h-40px'></div>
 									{/* end::Line*/}
 								</div>
 								{/* end::Step 5*/}
-
-								{/* begin::Step 6*/}
-								<div
-									className='stepper-item'
-									data-kt-stepper-element='nav'>
-									{/* begin::Wrapper*/}
-									<div className='stepper-wrapper'>
-										{/* begin::Icon*/}
-										<div className='stepper-icon w-40px h-40px'>
-											<i className='stepper-check fas fa-check'></i>
-											<span className='stepper-number'>
-												6
-											</span>
-										</div>
-										{/* end::Icon*/}
-
-										{/* begin::Label*/}
-										<div className='stepper-label'>
-											<h3 className='stepper-title'>
-												Payment
-											</h3>
-											<div className='stepper-desc fw-semibold'>
-												Woah, we
-												are here
-											</div>
-										</div>
-										{/* end::Label*/}
-									</div>
-									{/* end::Wrapper*/}
-								</div>
-								{/* end::Step 6*/}
 							</div>
 							{/* end::Nav*/}
 						</div>
@@ -397,7 +374,7 @@ const Vertical = () => {
 					{/* begin::Aside*/}
 
 					<div
-						className='card d-flex flex-row-fluid flex-center bg-body rounded'
+						className='card d-flex flex-row-fluid bg-body rounded'
 						style={{ border: 0 }}>
 						<Formik
 							validationSchema={currentSchema}
@@ -405,7 +382,7 @@ const Vertical = () => {
 							onSubmit={submitStep}>
 							{({ values }) => (
 								<Form
-									className='py-20 w-100 w-xl-700px px-9'
+									className='py-5 w-100 w-xl-700px px-9'
 									noValidate
 									id='kt_create_account_form'>
 									<div
@@ -467,11 +444,13 @@ const Vertical = () => {
 											}
 										/>
 									</div>
-									<div data-kt-stepper-element='content'>
-										<Payment />
-									</div>
 
-									<div className='d-flex flex-stack pt-10'>
+									<div
+										className='d-flex position-absolute flex-stack pt-10'
+										style={{
+											width: '90%',
+											bottom: '5%',
+										}}>
 										<div className='mr-2'>
 											<button
 												onClick={
@@ -508,7 +487,7 @@ const Vertical = () => {
 															.current
 															?.totatStepsNumber! -
 															1 &&
-														'Submit'}
+														'Pay Now'}
 													<KTSVG
 														path='/media/icons/duotune/arrows/arr064.svg'
 														className='svg-icon-3 ms-2 me-0'

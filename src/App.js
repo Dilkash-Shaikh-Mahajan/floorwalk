@@ -62,7 +62,8 @@ function App() {
 				/>
 				<Route
 					path={`${
-						process.env.PUBLIC_URL + '/course-details'
+						process.env.PUBLIC_URL +
+						'/course-details/:id'
 					}`}
 					component={CourseDetails}
 				/>
