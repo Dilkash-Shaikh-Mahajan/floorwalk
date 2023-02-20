@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Styles } from './styles/stickyMenu.js';
+import { useSelector } from 'react-redux';
 
 function StickyMenu() {
+	const { user, refreshToken } = useSelector((state) => state.auth);
+
 	useEffect(() => {
 		window.addEventListener('scroll', () => {
 			const stickyMenu = document.querySelector('.sticky-menu');
@@ -139,17 +142,35 @@ function StickyMenu() {
                                         </ul>
                                     </li>*/}
 								</ul>
-								<div className='apply-btn'>
-									<Link
-										to={
-											process.env
-												.PUBLIC_URL +
-											'/login'
-										}>
-										<i className='las la-sign-in-alt'></i>
-										Login
-									</Link>
-								</div>
+								{refreshToken ? (
+									<div className='user-exist-btn'>
+										<Link
+											to={
+												process
+													.env
+													.PUBLIC_URL +
+												'/user_dashboard'
+											}>
+											Hi{' '}
+											{
+												user.first_name
+											}
+										</Link>
+									</div>
+								) : (
+									<div className='apply-btn'>
+										<Link
+											to={
+												process
+													.env
+													.PUBLIC_URL +
+												'/login'
+											}>
+											<i className='las la-sign-in-alt'></i>
+											Login
+										</Link>
+									</div>
+								)}
 							</div>
 						</Col>
 					</Row>

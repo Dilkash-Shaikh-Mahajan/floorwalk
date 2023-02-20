@@ -11,7 +11,7 @@ import { Vertical } from '../verticalstepper/Vertical.tsx';
 import { useSelector } from 'react-redux';
 
 const HeaderTwo = () => {
-	const { user } = useSelector((state) => state.auth);
+	const { user, refreshToken } = useSelector((state) => state.auth);
 	return (
 		<Styles>
 			{/* Topbar 2 */}
@@ -239,7 +239,7 @@ const HeaderTwo = () => {
 								{/*<div className="search-box">
                                         <Search />
                                     </div>*/}
-								{user ? (
+								{refreshToken ? (
 									<div className='user-exist-btn'>
 										<Link
 											to={

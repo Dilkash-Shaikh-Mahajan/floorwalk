@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 
 const CourseGrid = () => {
 	const dispatch = useDispatch();
-	const getSubCategoriesData = async () => {
+	const getSolutionsData = async () => {
 		const responseData = await axios.get(
 			'http://54.147.49.251/api/solutions/',
 			// config,
@@ -22,7 +22,7 @@ const CourseGrid = () => {
 	};
 
 	useEffect(() => {
-		getSubCategoriesData();
+		getSolutionsData();
 	}, []);
 	return (
 		<div className='main-wrapper course-page'>

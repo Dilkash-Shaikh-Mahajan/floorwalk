@@ -64,181 +64,195 @@ const RegistrationStepper = ({ stepper }) => {
 	}
 
 	return (
-		<div>
-			<Toaster
-				position='top-right'
-				reverseOrder={false}
-				toastOptions={{
-					style: {
-						fontSize: '14px',
-					},
-				}}
-			/>
-			<div className='d-flex justify-content-between'>
-				<div className='text-black fw-bold fs-2'>
-					Registration
-				</div>
-				<div className='login'>
-					<h4 className='text-gray-400 fw-bold fs-6'>
-						Already Have't Account{' '}
-						<Link
-							className='text-blue-300 fw-bold fs-6'
-							to={{
-								pathname: '/login',
+		
+			
+			<div className='row'>
+				<div className='col-md-8'>
+					<div className='text-black fw-bold fs-2'>
+						Registration
+					</div>
 
-								state: { prev: 'stepperReg' },
-							}}>
-							Login
-						</Link>
-					</h4>
-				</div>
-			</div>
-			<Styles>
-				<div id='form_registration' className='form'>
-					<div className='row w-100'>
-						<div className='formGroup col-md-6'>
-							<p className='form-control'>
-								<label htmlFor='registration_fname'>
-									First Name
-								</label>
-								<input
-									type='text'
-									placeholder='First name'
-									id='registration_fname'
-									value={firstName}
-									onChange={(e) =>
-										setFirstName(
-											e.target
-												.value,
-										)
-									}
-								/>
-								<span className='registration_input-msg'></span>
-							</p>
-						</div>
-						<div className='formGroup col-md-6'>
-							<p className='form-control'>
-								<label htmlFor='registration_lname'>
-									Last Name
-								</label>
-								<input
-									type='text'
-									placeholder='Last name'
-									id='registration_lname'
-									value={lastName}
-									onChange={(e) =>
-										setLastName(
-											e.target
-												.value,
-										)
-									}
-								/>
-								<span className='registration_input-msg'></span>
-							</p>
-						</div>
-						<div className='col-md-6'>
-							<p className='form-control '>
-								<label htmlFor='registration_email'>
-									Work Email Address
-								</label>
-								<input
-									type='email'
-									placeholder='Work Email address'
-									id='registration_email'
-									value={email}
-									onChange={(e) =>
-										setEmail(
-											e.target
-												.value,
-										)
-									}
-								/>
-								<span className='registration_input-msg'>
-									{error}
-								</span>
-							</p>
-						</div>
-						<div className='col-md-6'>
-							<p className='form-control'>
-								<label htmlFor='registration_mobile'>
-									Mobile Number
-								</label>
-								<input
-									type='number'
-									placeholder='Mobile Number'
-									id='registration_mobile'
-									value={mobile}
-									onChange={(e) =>
-										setMobile(
-											e.target
-												.value,
-										)
-									}
-								/>
-								<span className='registration_input-msg'></span>
-							</p>
-						</div>
-						<div className='col-md-12'>
-							<p className='form-control'>
-								<label htmlFor='registration_compnay_name'>
-									Company Name
-								</label>
-								<input
-									type='text'
-									placeholder='Company Name'
-									id='registration_compnay_name'
-									value={company}
-									onChange={(e) =>
-										setCompany(
-											e.target
-												.value,
-										)
-									}
-								/>
-								<span className='registration_input-msg'></span>
-							</p>
-						</div>
-						<div className='col-md-6'>
-							<p className='form-control'>
-								<label htmlFor='registration_password'>
-									Password
-								</label>
-								<input
-									type='password'
-									placeholder='*******'
-									id='registration_password'
-									value={password}
-									onChange={(e) =>
-										setPassword(
-											e.target
-												.value,
-										)
-									}
-								/>
-								<span className='registration_input-msg'></span>
-							</p>
-						</div>
-						<div className='col-md-6'>
-							<p className='form-control'>
-								<label htmlFor='registration_cpassword'>
-									Confirm Password
-								</label>
-								<input
-									type='password'
-									placeholder='Confirm password'
-									id='registration_cpassword'
-									value={cpassword}
-									onChange={(e) =>
-										setCPassword(
-											e.target
-												.value,
-										)
-									}
-								/>
-								<span className='registration_input-msg'></span>
-							</p>
-						</div>
-						{/* <div className='col-md-6'>
+					<Styles>
+						<div
+							id='form_registration'
+							className='form'>
+							<div className='row w-100'>
+								<div className='formGroup col-md-6'>
+									<p className='form-control'>
+										<label htmlFor='registration_fname'>
+											First Name
+										</label>
+										<input
+											type='text'
+											placeholder='First name'
+											id='registration_fname'
+											value={
+												firstName
+											}
+											onChange={(
+												e,
+											) =>
+												setFirstName(
+													e
+														.target
+														.value,
+												)
+											}
+										/>
+										<span className='registration_input-msg'></span>
+									</p>
+								</div>
+								<div className='formGroup col-md-6'>
+									<p className='form-control'>
+										<label htmlFor='registration_lname'>
+											Last Name
+										</label>
+										<input
+											type='text'
+											placeholder='Last name'
+											id='registration_lname'
+											value={
+												lastName
+											}
+											onChange={(
+												e,
+											) =>
+												setLastName(
+													e
+														.target
+														.value,
+												)
+											}
+										/>
+										<span className='registration_input-msg'></span>
+									</p>
+								</div>
+								<div className='col-md-6'>
+									<p className='form-control '>
+										<label htmlFor='registration_email'>
+											Work Email
+											Address
+										</label>
+										<input
+											type='email'
+											placeholder='Work Email address'
+											id='registration_email'
+											value={email}
+											onChange={(
+												e,
+											) =>
+												setEmail(
+													e
+														.target
+														.value,
+												)
+											}
+										/>
+										<span className='registration_input-msg'>
+											{error}
+										</span>
+									</p>
+								</div>
+								<div className='col-md-6'>
+									<p className='form-control'>
+										<label htmlFor='registration_mobile'>
+											Mobile Number
+										</label>
+										<input
+											type='number'
+											placeholder='Mobile Number'
+											id='registration_mobile'
+											value={mobile}
+											onChange={(
+												e,
+											) =>
+												setMobile(
+													e
+														.target
+														.value,
+												)
+											}
+										/>
+										<span className='registration_input-msg'></span>
+									</p>
+								</div>
+								<div className='col-md-12'>
+									<p className='form-control'>
+										<label htmlFor='registration_compnay_name'>
+											Company Name
+										</label>
+										<input
+											type='text'
+											placeholder='Company Name'
+											id='registration_compnay_name'
+											value={
+												company
+											}
+											onChange={(
+												e,
+											) =>
+												setCompany(
+													e
+														.target
+														.value,
+												)
+											}
+										/>
+										<span className='registration_input-msg'></span>
+									</p>
+								</div>
+								<div className='col-md-6'>
+									<p className='form-control'>
+										<label htmlFor='registration_password'>
+											Password
+										</label>
+										<input
+											type='password'
+											placeholder='*******'
+											id='registration_password'
+											value={
+												password
+											}
+											onChange={(
+												e,
+											) =>
+												setPassword(
+													e
+														.target
+														.value,
+												)
+											}
+										/>
+										<span className='registration_input-msg'></span>
+									</p>
+								</div>
+								<div className='col-md-6'>
+									<p className='form-control'>
+										<label htmlFor='registration_cpassword'>
+											Confirm
+											Password
+										</label>
+										<input
+											type='password'
+											placeholder='Confirm password'
+											id='registration_cpassword'
+											value={
+												cpassword
+											}
+											onChange={(
+												e,
+											) =>
+												setCPassword(
+													e
+														.target
+														.value,
+												)
+											}
+										/>
+										<span className='registration_input-msg'></span>
+									</p>
+								</div>
+								{/* <div className='col-md-6'>
 							<p className='form-control '>
 								<label htmlFor='registration_email'>
 									Address
@@ -340,15 +354,87 @@ const RegistrationStepper = ({ stepper }) => {
 								<span className='registration_input-msg'></span>
 							</p>
 						</div> */}
-					</div>
-					{/* <button
+							</div>
+							{/* <button
 						type='button'
 						onClick={(e) => formSubmit(e)}>
 						Register Now
 					</button> */}
+						</div>
+					</Styles>
 				</div>
-			</Styles>
-		</div>
+				<div className='col-md-4'>
+					<div
+						className={`px-9 py-3 mt-2 mb-3 card-rounded w-100`}
+						// style={{ backgroundColor: '#f3f4f5' }}
+					>
+						<h3
+							className='m-0 fw-bold fs-4'
+							style={{ color: '#454646' }}>
+							Project Summary
+						</h3>
+						<div className='d-flex text-center justify-content-between flex-row pt-2'>
+							<span className='fs-6 fw-bold'>
+								Requested Responses
+							</span>
+							<span className='fw-bold fs-6'>
+								{' '}
+								{5}
+							</span>
+						</div>
+						<div className='d-flex text-center justify-content-between flex-row pt-2'>
+							<span className='fs-6 fw-bold'>
+								Solution Price :{' '}
+							</span>
+							<span className='fw-bold fs-6'>
+								{' '}
+								{1100}
+							</span>
+						</div>
+						<div className='d-flex text-center justify-content-between flex-row pt-2'>
+							<span className='fs-6 fw-bold'>
+								Sub Total :{' '}
+							</span>
+							<span className='fw-bold fs-6'>
+								{' '}
+								{5500}
+							</span>
+						</div>
+						<div className='d-flex text-center justify-content-between flex-row pt-0'>
+							<span className='fs-6 fw-bold'>
+								Tax (18%):{' '}
+							</span>
+							<span className='fw-bold fs-6'>
+								{' '}
+								startDate
+							</span>
+						</div>
+						<div className='d-flex text-center justify-content-between flex-row pt-0'>
+							<span className='fs-6 fw-bold'>
+								Total :{' '}
+							</span>
+							<span className='fw-bold fs-6'>
+								{' '}
+								cdcd
+							</span>
+						</div>
+						<div
+							style={{
+								border: '1px solid #1789E4',
+							}}></div>
+						<div className='d-flex text-center justify-content-between flex-row pt-0'>
+							<span className='fs-6 fw-bold'>
+								Total :{' '}
+							</span>
+							<span className='fw-bold fs-6'>
+								{' '}
+								cdcd
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		
 	);
 };
 

@@ -36,7 +36,7 @@ const FinalReview: FC<Props> = ({
 	return (
 		<div className='w-100'>
 			<div className='pb-0 pb-lg-15'>
-				<h2 className='fw-bolder d-flex align-items-center text-dark'>
+				<h2 className='fw-bolder fs-3 d-flex align-items-center text-dark'>
 					Final Review
 					<i
 						className='fas fa-exclamation-circle ms-2 fs-7'
@@ -55,144 +55,154 @@ const FinalReview: FC<Props> = ({
 			</div>
 
 			<div
-				className={`card card-xl-stretch mb-xl-8`}
+				className={`card-xl-stretch mb-xl-8`}
 				style={{ border: 'none' }}>
 				{/* begin::Body */}
-				<div className='card-body d-flex justify-content-between'>
+				<div className=' row w-100'>
 					{/* begin::Header */}
 
-					<div className=''>
+					<div className='col-md-8'>
 						<div
-							className={`px-9 py-3 mt-2 mb-3 card-rounded w-100`}
+							className={`row w-100`}
 							// style={{ backgroundColor: '#f3f4f5' }}
 						>
 							<h3
-								className='m-0 fw-bold fs-4'
+								className='m-0 my-2 fw-bold fs-4'
 								style={{ color: '#454646' }}>
 								Project Setup
 							</h3>
-							<div className='d-flex text-start flex-row pt-2'>
-								<span className='fs-5'>
-									Project Name :{' '}
-								</span>
-								<span className='fw-bold fs-5'>
-									{' '}
-									{projectName}
-								</span>
+							<div className='col-md-6'>
+								<div className='d-flex text-start flex-row pt-2'>
+									<span className='fs-6'>
+										Project Name :{' '}
+									</span>
+									<span className='fw-bold fs-6'>
+										{' '}
+										{projectName}
+									</span>
+								</div>
+								<div className='d-flex text-start flex-row pt-0'>
+									<span className='fs-6'>
+										Start Date :{' '}
+									</span>
+									<span className='fw-bold fs-6'>
+										{' '}
+										{startDate}
+									</span>
+								</div>
+								<div className='d-flex text-start flex-row pt-0'>
+									<span className='fs-6'>
+										End Date :{' '}
+									</span>
+									<span className='fw-bold fs-6'>
+										{' '}
+										{endDate}
+									</span>
+								</div>
+								<div className='d-flex text-start flex-row pt-0'>
+									<span className='fs-6'>
+										Industry Selection :{' '}
+									</span>
+									<span className='fw-bold fs-6'>
+										{' '}
+										{businessType}
+									</span>
+								</div>
 							</div>
-							<div className='d-flex text-start flex-row pt-0'>
-								<span className='fs-5'>
-									Start Date :{' '}
-								</span>
-								<span className='fw-bold fs-5'>
-									{' '}
-									{startDate}
-								</span>
-							</div>
-							<div className='d-flex text-start flex-row pt-0'>
-								<span className='fs-5'>
-									End Date :{' '}
-								</span>
-								<span className='fw-bold fs-5'>
-									{' '}
-									{endDate}
-								</span>
-							</div>
-							<div className='d-flex text-start flex-row pt-0'>
-								<span className='fs-5'>
-									Industry Selection :{' '}
-								</span>
-								<span className='fw-bold fs-5'>
-									{' '}
-									{businessType}
-								</span>
-							</div>
-							<h3
-								className='mt-4 fw-semibold fs-5'
-								style={{ color: '#454646' }}>
-								Demographics
-							</h3>
-							{audiencePreference &&
-							(ageRange ||
-								carPriceRange ||
-								occupation ||
-								incomeRange) ? (
-								<>
-									<div className='d-flex text-start flex-row pt-0'>
-										<span className='fs-5'>
-											Age Range :{' '}
-										</span>
-										{/* <span className='fw-bold fs-5'> */}{' '}
-										<span className='fw-bold fs-5'>
-											<span className='fw-bold fs-5'>
+							<div className='col-md-6'>
+								<h3
+									className='fw-semibold fs-6'
+									style={{
+										color: '#454646',
+									}}>
+									Demographics
+								</h3>
+								{audiencePreference &&
+								(ageRange ||
+									carPriceRange ||
+									occupation ||
+									incomeRange) ? (
+									<>
+										<div className='d-flex text-start flex-row pt-0'>
+											<span className='fs-6'>
+												Age
+												Range :{' '}
+											</span>
+											{/* <span className='fw-bold fs-6'> */}{' '}
+											<span className='fw-bold fs-6'>
+												<span className='fw-bold fs-6'>
+													{
+														stringAgeRange
+													}
+												</span>
+											</span>
+										</div>
+										<div className='d-flex text-start flex-row pt-0'>
+											<span className='fs-6'>
+												Occupation
+												:{' '}
+											</span>
+
+											<span className='fw-bold fs-6'>
 												{
-													stringAgeRange
+													stringOccupation
 												}
 											</span>
-										</span>
-									</div>
-									<div className='d-flex text-start flex-row pt-0'>
-										<span className='fs-5'>
-											Occupation :{' '}
-										</span>
+										</div>
+										<div className='d-flex text-start flex-row pt-0'>
+											<span className='fs-6'>
+												Income
+												Range :{' '}
+											</span>
 
-										<span className='fw-bold fs-5'>
-											{
-												stringOccupation
-											}
-										</span>
-									</div>
-									<div className='d-flex text-start flex-row pt-0'>
-										<span className='fs-5'>
-											Income Range :{' '}
-										</span>
+											<span className='fw-bold fs-6'>
+												{
+													stringIncomeRange
+												}
+											</span>
+										</div>
+										<div className='d-flex text-start flex-row pt-0'>
+											<span className='fs-6'>
+												Car
+												Price
+												Range :{' '}
+											</span>
 
-										<span className='fw-bold fs-5'>
-											{
-												stringIncomeRange
-											}
-										</span>
-									</div>
-									<div className='d-flex text-start flex-row pt-0'>
-										<span className='fs-5'>
-											Car Price
-											Range :{' '}
-										</span>
+											<span className='fw-bold fs-6'>
+												{
+													stringCarPriceRange
+												}
+											</span>
+										</div>
+										<div className='d-flex text-start flex-row pt-0'>
+											<span className='fs-6'>
+												Interest
+												Areas :{' '}
+											</span>
 
-										<span className='fw-bold fs-5'>
-											{
-												stringCarPriceRange
-											}
-										</span>
-									</div>
-									<div className='d-flex text-start flex-row pt-0'>
-										<span className='fs-5'>
-											Interest Areas
-											:{' '}
-										</span>
-
-										<span className='fw-bold fs-5'>
-											{
-												stringInterestAreas
-											}
-										</span>
-									</div>
-								</>
-							) : (
-								<span className='fw-bold fs-5'>
-									{' '}
-									No Demographics Data
-									Selected
-								</span>
-							)}
+											<span className='fw-bold fs-6'>
+												{
+													stringInterestAreas
+												}
+											</span>
+										</div>
+									</>
+								) : (
+									<span className='fw-bold fs-6'>
+										{' '}
+										No Demographics Data
+										Selected
+									</span>
+								)}
+							</div>
 						</div>
 
 						<div
-							className={`px-9 py-3 mt-2 mb-3 card-rounded w-100`}
+							className={`row w-100`}
 							// style={{ backgroundColor: '#f3f4f5' }}
 						>
 							<h3
-								className='m-0 fw-bold fs-4'
+								className='m-0 my-2 fw-bold fs-4'
 								style={{ color: '#454646' }}>
 								Project Targeting
 							</h3>
@@ -205,62 +215,62 @@ const FinalReview: FC<Props> = ({
 										<div
 											key={index}
 											className='col-md-6'>
-											<div className='d-flex text-start flex-row pt-2'>
-												<span className='fs-5'>
+											<div className='text-start flex-row pt-2'>
+												<span className='fs-6'>
 													Store
 													Name
 													:{' '}
 												</span>
-												<span className='fw-bold fs-5'>
+												<span className='fw-bold fs-6'>
 													{' '}
 													{
 														store.storeName
 													}
 												</span>
 											</div>
-											<div className='d-flex text-start flex-row pt-0'>
-												<span className='fs-5'>
+											<div className='text-start flex-row pt-0'>
+												<span className='fs-6'>
 													Store
 													Address
 													:{' '}
 												</span>
-												<span className='fw-bold fs-5'>
+												<span className='fw-bold fs-6'>
 													{
 														store.storeAddress
 													}
 												</span>
 											</div>
-											<div className='d-flex text-start flex-row pt-0'>
-												<span className='fs-5'>
+											<div className='text-start flex-row pt-0'>
+												<span className='fs-6'>
 													Store
 													City
 													:{' '}
 												</span>
-												<span className='fw-bold fs-5'>
+												<span className='fw-bold fs-6'>
 													{
 														store.storeCity
 													}
 												</span>
 											</div>
-											<div className='d-flex text-start flex-row pt-0'>
-												<span className='fs-5'>
+											<div className='text-start flex-row pt-0'>
+												<span className='fs-6'>
 													Store
 													State
 													:{' '}
 												</span>
-												<span className='fw-bold fs-5'>
+												<span className='fw-bold fs-6'>
 													{
 														store.storeState
 													}
 												</span>
 											</div>
-											<div className='d-flex text-start flex-row pt-0'>
-												<span className='fs-5'>
+											<div className='text-start flex-row pt-0'>
+												<span className='fs-6'>
 													Store
 													Postal
 													:{' '}
 												</span>
-												<span className='fw-bold fs-5'>
+												<span className='fw-bold fs-6'>
 													{
 														store.storePostal
 													}
@@ -273,11 +283,11 @@ const FinalReview: FC<Props> = ({
 						</div>
 
 						<div
-							className={`px-9 py-3 mt-2 card-rounded w-100`}
+							className={`py-3 my-2 card-rounded w-100`}
 							// style={{ backgroundColor: '#f3f4f5' }}
 						>
 							<h3
-								className='m-0 fw-bold fs-4'
+								className='m-0 my-2 fw-bold fs-4'
 								style={{ color: '#454646' }}>
 								Project Detail
 							</h3>
@@ -286,7 +296,7 @@ const FinalReview: FC<Props> = ({
 									<div
 										className='d-flex mt-3 align-items-center mb-7'
 										key={index}>
-										<div className='symbol symbol-50px me-5'>
+										<div className='symbol symbol-50px'>
 											{data.fileObj.map(
 												(
 													image: any,
@@ -307,24 +317,24 @@ const FinalReview: FC<Props> = ({
 										</div>
 										<div className='d-flex flex-column'>
 											<div className='d-flex text-start flex-row pt-0'>
-												<span className='fs-5'>
+												<span className='fs-6'>
 													Product
 													Description
 													:{' '}
 												</span>
-												<span className='fw-bold fs-5'>
+												<span className='fw-bold fs-6'>
 													{
 														data.itemDescription
 													}
 												</span>
 											</div>
 											<div className='d-flex text-start flex-row pt-0'>
-												<span className='fs-5'>
+												<span className='fs-6'>
 													Product
 													Price
 													:{' '}
 												</span>
-												<span className='fw-bold fs-5'>
+												<span className='fw-bold fs-6'>
 													$
 													{
 														data.productPrice
@@ -337,7 +347,7 @@ const FinalReview: FC<Props> = ({
 							)}
 						</div>
 					</div>
-					<div className=''>
+					<div className='col-md-4'>
 						<div
 							className={`px-9 py-3 mt-2 mb-3 card-rounded w-100`}
 							// style={{ backgroundColor: '#f3f4f5' }}
@@ -345,31 +355,49 @@ const FinalReview: FC<Props> = ({
 							<h3
 								className='m-0 fw-bold fs-4'
 								style={{ color: '#454646' }}>
-								Project Price Detail
+								Project Summary
 							</h3>
 							<div className='d-flex text-center justify-content-between flex-row pt-2'>
-								<span className='fs-5'>
+								<span className='fs-6'>
+									Requested Responses
+								</span>
+								<span className='fw-bold fs-6'>
+									{' '}
+									{5}
+								</span>
+							</div>
+							<div className='d-flex text-center justify-content-between flex-row pt-2'>
+								<span className='fs-6'>
+									Solution Price :{' '}
+								</span>
+								<span className='fw-bold fs-6'>
+									{' '}
+									{1100}
+								</span>
+							</div>
+							<div className='d-flex text-center justify-content-between flex-row pt-2'>
+								<span className='fs-6'>
 									Sub Total :{' '}
 								</span>
-								<span className='fw-bold fs-5'>
+								<span className='fw-bold fs-6'>
 									{' '}
-									{projectName}
+									{5500}
 								</span>
 							</div>
 							<div className='d-flex text-center justify-content-between flex-row pt-0'>
-								<span className='fs-5'>
-									Tax :{' '}
+								<span className='fs-6'>
+									Tax (18%):{' '}
 								</span>
-								<span className='fw-bold fs-5'>
+								<span className='fw-bold fs-6'>
 									{' '}
 									{startDate}
 								</span>
 							</div>
 							<div className='d-flex text-center justify-content-between flex-row pt-0'>
-								<span className='fs-5'>
+								<span className='fs-6'>
 									Total :{' '}
 								</span>
-								<span className='fw-bold fs-5'>
+								<span className='fw-bold fs-6'>
 									{' '}
 									{endDate}
 								</span>

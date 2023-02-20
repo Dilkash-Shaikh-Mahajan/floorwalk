@@ -10,7 +10,7 @@ function CourseFilter() {
 	// const [subCategories, setSubCategories] = useState('');
 	const [dataList, setDataList] = useState(
 		Datas.dataList.filter(function (data) {
-			return data.targetId === 'Non Purchase';
+			return data.targetId === 'Purchase';
 		}),
 	);
 
@@ -65,7 +65,7 @@ function CourseFilter() {
 									{subCategories?.map(
 										(subCategory, i) =>
 											subCategory.category_name ===
-											'Audits' ? (
+											'Audit' ? (
 												<li
 													key={
 														i

@@ -49,7 +49,7 @@ function CourseDetails() {
 			<HeaderTwo />
 
 			{/* Breadcroumb */}
-			<BreadcrumbBox title='Course Details' />
+			<BreadcrumbBox title={responseData.name} />
 
 			<Styles>
 				{/* Course Details */}
@@ -67,35 +67,18 @@ function CourseDetails() {
 									</div>
 									<div className='course-top-overview'>
 										<div className='d-flex overviews'>
-											{/* <div className='author'>
-												<img
-													src={
-														process
-															.env
-															.PUBLIC_URL +
-														`/assets/images/author.jpg`
-													}
-													alt=''
-												/>
-												<div className='author-name'>
-													<h6>
-														Author
-													</h6>
-													<p>
-														Andy
-														Robert
-													</p>
-												</div>
-											</div> */}
 											<div className='category'>
 												<h6>
 													Category
 												</h6>
 												<p>
-													Audits
+													{
+														responseData.category
+													}
 													-
-													Non
-													Purchase
+													{
+														responseData.sub_category
+													}
 												</p>
 											</div>
 											{/* <div className='rating'>
@@ -164,11 +147,12 @@ function CourseDetails() {
 														Get
 													</Nav.Link>
 												</Nav.Item>
-												{/* <Nav.Item>
-													<Nav.Link eventKey='review'>
-														Reviews
+												<Nav.Item>
+													<Nav.Link eventKey='executionTime'>
+														execution
+														Time
 													</Nav.Link>
-												</Nav.Item> */}
+												</Nav.Item>
 											</Nav>
 											<Tab.Content>
 												<Tab.Pane
@@ -260,307 +244,12 @@ function CourseDetails() {
 														}}></p>
 												</Tab.Pane>
 												<Tab.Pane
-													eventKey='review'
+													eventKey='executionTime'
 													className='review-tab'>
-													<Row>
-														<Col md='12'>
-															<div className='review-comments'>
-																<h5>
-																	Course
-																	Reviews
-																</h5>
-																<div className='comment-box d-flex'>
-																	<div className='comment-image'>
-																		<img
-																			src={
-																				process
-																					.env
-																					.PUBLIC_URL +
-																				`/assets/images/testimonial-2.jpg`
-																			}
-																			alt=''
-																		/>
-																	</div>
-																	<div className='comment-content'>
-																		<div className='content-title d-flex justify-content-between'>
-																			<div className='comment-writer'>
-																				<h6>
-																					Mark
-																					Shadow
-																				</h6>
-																				<p>
-																					Mar
-																					26,
-																					2020
-																					|
-																					06:30pm
-																				</p>
-																				<ul className='list-unstyled list-inline'>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star-half-alt'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						(4.5)
-																					</li>
-																				</ul>
-																			</div>
-																			<div className='reply-btn'>
-																				<button type='button'>
-																					<i className='las la-reply-all'></i>{' '}
-																					Reply
-																				</button>
-																			</div>
-																		</div>
-																		<div className='comment-desc'>
-																			<p>
-																				Lorem
-																				ipsum
-																				dolor
-																				sit
-																				amet
-																				consectetur
-																				adipisicing
-																				elit.
-																				Architecto
-																				laborum
-																				quas
-																				placeat
-																				perspiciatis
-																				est,
-																				nisi
-																				expedita
-																				consectetur
-																				sit
-																				minus
-																				illum
-																				laudantium
-																				nostrum
-																				dolore
-																				odit
-																				asperiores
-																				quisquam
-																				ad
-																				enim
-																				iusto
-																				laborum
-																				quas
-																				placeat
-																				perspiciatis
-																				saepe.
-																			</p>
-																		</div>
-																	</div>
-																</div>
-																<div className='comment-box d-flex'>
-																	<div className='comment-image'>
-																		<img
-																			src={
-																				process
-																					.env
-																					.PUBLIC_URL +
-																				`/assets/images/testimonial-1.jpg`
-																			}
-																			alt=''
-																		/>
-																	</div>
-																	<div className='comment-content'>
-																		<div className='content-title d-flex justify-content-between'>
-																			<div className='comment-writer'>
-																				<h6>
-																					Katrin
-																					Kay
-																				</h6>
-																				<p>
-																					Mar
-																					26,
-																					2020
-																					|
-																					06:30pm
-																				</p>
-																				<ul className='list-unstyled list-inline'>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star-half-alt'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						(4.5)
-																					</li>
-																				</ul>
-																			</div>
-																			<div className='reply-btn'>
-																				<button type='button'>
-																					<i className='las la-reply-all'></i>{' '}
-																					Reply
-																				</button>
-																			</div>
-																		</div>
-																		<div className='comment-desc'>
-																			<p>
-																				Lorem
-																				ipsum
-																				dolor
-																				sit
-																				amet
-																				consectetur
-																				adipisicing
-																				elit.
-																				Architecto
-																				laborum
-																				quas
-																				placeat
-																				perspiciatis
-																				est,
-																				nisi
-																				expedita
-																				consectetur
-																				sit
-																				minus
-																				illum
-																				laudantium
-																				nostrum
-																				dolore
-																				odit
-																				asperiores
-																				quisquam
-																				ad
-																				enim
-																				iusto
-																				laborum
-																				quas
-																				placeat
-																				perspiciatis
-																				saepe.
-																			</p>
-																		</div>
-																	</div>
-																</div>
-																<div className='comment-box d-flex'>
-																	<div className='comment-image'>
-																		<img
-																			src={
-																				process
-																					.env
-																					.PUBLIC_URL +
-																				`/assets/images/testimonial-2.jpg`
-																			}
-																			alt=''
-																		/>
-																	</div>
-																	<div className='comment-content'>
-																		<div className='content-title d-flex justify-content-between'>
-																			<div className='comment-writer'>
-																				<h6>
-																					David
-																					Show
-																				</h6>
-																				<p>
-																					Mar
-																					26,
-																					2020
-																					|
-																					06:30pm
-																				</p>
-																				<ul className='list-unstyled list-inline'>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						<i className='las la-star-half-alt'></i>
-																					</li>
-																					<li className='list-inline-item'>
-																						(4.5)
-																					</li>
-																				</ul>
-																			</div>
-																			<div className='reply-btn'>
-																				<button type='button'>
-																					<i className='las la-reply-all'></i>{' '}
-																					Reply
-																				</button>
-																			</div>
-																		</div>
-																		<div className='comment-desc'>
-																			<p>
-																				Lorem
-																				ipsum
-																				dolor
-																				sit
-																				amet
-																				consectetur
-																				adipisicing
-																				elit.
-																				Architecto
-																				laborum
-																				quas
-																				placeat
-																				perspiciatis
-																				est,
-																				nisi
-																				expedita
-																				consectetur
-																				sit
-																				minus
-																				illum
-																				laudantium
-																				nostrum
-																				dolore
-																				odit
-																				asperiores
-																				quisquam
-																				ad
-																				enim
-																				iusto
-																				laborum
-																				quas
-																				placeat
-																				perspiciatis
-																				saepe.
-																			</p>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div className='review-form'>
-																<h5>
-																	Submit
-																	Review
-																</h5>
-																<ReviewForm />
-															</div>
-														</Col>
-													</Row>
+													<p
+														dangerouslySetInnerHTML={{
+															__html: responseData.execution_time,
+														}}></p>
 												</Tab.Pane>
 											</Tab.Content>
 										</Tab.Container>
@@ -578,44 +267,33 @@ function CourseDetails() {
 												<ul className='list-unstyled feature-list'>
 													<li>
 														<i className='las la-calendar'></i>{' '}
-														Start
-														Date:{' '}
+														Category
 														<span>
-															Aug
-															21,
-															2020
+															{
+																responseData.category
+															}
 														</span>
 													</li>
 													<li>
 														<i className='las la-clock'></i>{' '}
-														Duration:{' '}
+														Sub
+														Category
 														<span>
-															1
-															Year
+															{
+																responseData.sub_category
+															}
 														</span>
 													</li>
 													<li>
 														<i className='las la-globe'></i>{' '}
-														Language:{' '}
+														Price
 														<span>
-															English
+															{
+																responseData.price
+															}
 														</span>
 													</li>
-													<li>
-														<i className='las la-sort-amount-up'></i>{' '}
-														Skill
-														Level:{' '}
-														<span>
-															Beginner
-														</span>
-													</li>
-													<li>
-														<i className='las la-graduation-cap'></i>{' '}
-														Subject:{' '}
-														<span>
-															Web
-														</span>
-													</li>
+
 													{/* <li>
 														<i className='las la-book'></i>{' '}
 														Lectures:{' '}

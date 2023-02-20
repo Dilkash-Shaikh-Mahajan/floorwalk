@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { KTSVG } from '../helpers';
 import { Field, ErrorMessage, Formik, FormikValues, Form } from 'formik';
 import React from 'react';
@@ -9,7 +9,10 @@ import {
 	projectTargetInit,
 	projectTargetSchema,
 } from '../CreateAccountWizardHelper';
-
+import { Typeahead } from 'react-bootstrap-typeahead';
+import pincodes from '../../data/pincode/pincode';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 // let storeSecondAddress: any = [];
 type Props = {
 	storeSecondAddress: any;
@@ -23,12 +26,15 @@ const ProductTargeting: FC<Props> = ({
 	finalTargetData,
 }: Props) => {
 	const [modalShow, setModalShow] = React.useState(false);
+	const [selectedPincode, setSelectedPincode] = React.useState([]);
 	let storeMainAddress: any = [];
+
 	const submitStep = (values: any, actions: FormikValues) => {
 		storeMainAddress.push({
 			storeAddress: values.storeAddress,
 			storeCity: values.storeCity,
 			storeName: values.storeName,
+			numberOfResponse: values.numberOfResponse,
 			storePostal: values.storePostal,
 			storeState: values.storeState,
 		});
@@ -38,15 +44,18 @@ const ProductTargeting: FC<Props> = ({
 				storeAddress: values.storeAddress,
 				storeCity: values.storeCity,
 				storeName: values.storeName,
+				numberOfResponse: values.numberOfResponse,
 				storePostal: values.storePostal,
 				storeState: values.storeState,
 			},
 		]);
 		storeSecondAddress.push(...storeMainAddress);
+		setModalShow(false);
 
 		let storeData: any = sessionStorage.getItem('storeData');
 		storeData = JSON.parse(storeData);
 	};
+
 	return (
 		<div className='w-100'>
 			<div className='pb-10 pb-lg-12'>
@@ -83,7 +92,7 @@ const ProductTargeting: FC<Props> = ({
 						validationSchema={projectTargetSchema}
 						initialValues={projectTargetInit}
 						onSubmit={submitStep}>
-						{({ values }) => (
+						{({ setFieldValue }) => (
 							<Form
 								className='py-10 w-100 w-xl-700px px-9'
 								noValidate
@@ -116,10 +125,6 @@ const ProductTargeting: FC<Props> = ({
 									<div className='text-danger mt-2'>
 										<ErrorMessage name='storeAddress' />
 									</div>
-
-									{/* <div className='form-text'>
-            Customers will see this shortened version of your statement descriptor
-          </div> */}
 								</div>
 
 								<div className='fv-row mb-10'>
@@ -129,14 +134,47 @@ const ProductTargeting: FC<Props> = ({
 										</span>
 									</label>
 
-									<Field
-										name='storePostal'
-										type='number'
+									<Autocomplete
 										className='form-control form-control-lg form-control-solid'
+										fullWidth={true}
+										disablePortal
+										id='combo-box-demo'
+										options={pincodes}
+										sx={{ width: 300 }}
+										getOptionLabel={(
+											option,
+										) => option.pincode}
+										onChange={(
+											e: any,
+											value: any,
+										) => {
+											setFieldValue(
+												'storePostal',
+												value.pincode,
+											);
+											setFieldValue(
+												'storeCity',
+												value.districtname,
+											);
+											setFieldValue(
+												'storeState',
+												value.statename,
+											);
+										}}
+										renderInput={(
+											params: any,
+										) => (
+											<TextField
+												className='form-control form-control-lg form-control-solid'
+												fullWidth={
+													true
+												}
+												name='storePostal'
+												{...params}
+												label='Select A Pincode'
+											/>
+										)}
 									/>
-									<div className='text-danger mt-2'>
-										<ErrorMessage name='storePostal' />
-									</div>
 								</div>
 								<div className='fv-row mb-10'>
 									<label className='d-flex align-items-center form-label'>
@@ -169,12 +207,25 @@ const ProductTargeting: FC<Props> = ({
 										<ErrorMessage name='storeState' />
 									</div>
 								</div>
+								<div className='fv-row mb-10'>
+									<label className='d-flex align-items-center form-label'>
+										<span className='required'>
+											Number Of
+											Response
+										</span>
+									</label>
+
+									<Field
+										name='numberOfResponse'
+										className='form-control form-control-lg form-control-solid'
+									/>
+									<div className='text-danger mt-2'>
+										<ErrorMessage name='numberOfResponse' />
+									</div>
+								</div>
 
 								<button
 									type='submit'
-									onClick={() =>
-										setModalShow(false)
-									}
 									className='btn btn-lg btn-primary me-3 continueButtonTop'>
 									<span className='indicator-label'>
 										Submit
@@ -198,6 +249,9 @@ const ProductTargeting: FC<Props> = ({
 						<th className='fw-bold'>City</th>
 						<th className='fw-bold'>State</th>
 						<th className='fw-bold'>Postal Code</th>
+						<th className='fw-bold'>
+							Number Of Response
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -216,6 +270,11 @@ const ProductTargeting: FC<Props> = ({
 									</td>
 									<td>
 										{store.storePostal}
+									</td>
+									<td>
+										{
+											store.numberOfResponse
+										}
 									</td>
 								</tr>
 							);

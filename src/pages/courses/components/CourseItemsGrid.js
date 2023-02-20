@@ -14,7 +14,7 @@ const CourseItemsGrid = () => {
 			{solutions.map((data, i) => (
 				<Col lg='6' md='12' key={i}>
 					<div className='course-item'>
-						<Link to={`/course-details/1`}>
+						<Link to={`/course-details/${data.id}`}>
 							<div
 								className='course-image'
 								style={{
@@ -46,7 +46,7 @@ const CourseItemsGrid = () => {
 									</div>
 								</div>
 								<div className='course-price'>
-									<p>${data.price}</p>
+									<p>₹{data.price}</p>
 								</div>
 							</div>
 						</Link>
@@ -54,18 +54,18 @@ const CourseItemsGrid = () => {
 							<h6 className='heading'>
 								<Link
 									// to={`/course-details/${data.name}`}>
-									to={`/course-details/1`}>
+									to={`/course-details/${data.id}`}>
 									{data.name}
 								</Link>
 							</h6>
 							<p
 								className='desc'
 								dangerouslySetInnerHTML={{
-									__html: data.about,
+									__html: data.overview,
 								}}>
 								{/* {data.about} */}
 							</p>
-							<div className='course-face d-flex justify-content-between'>
+							{/* <div className='course-face d-flex justify-content-between'>
 								<div className='duration'>
 									<p>
 										<i className='las la-clock'></i>
@@ -100,7 +100,7 @@ const CourseItemsGrid = () => {
 										60
 									</p>
 								</div>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</Col>

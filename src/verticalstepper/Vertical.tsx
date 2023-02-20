@@ -426,14 +426,14 @@ const Vertical = () => {
 
 									<div data-kt-stepper-element='content'>
 										<FinalReview
-											audiencePreference={
-												audiencePreference
-											}
 											finalTargetData={
 												finalTargetData
 											}
 											finalFormData={
 												finalFormData
+											}
+											audiencePreference={
+												audiencePreference
 											}
 										/>
 									</div>
@@ -450,7 +450,7 @@ const Vertical = () => {
 										className='d-flex position-absolute flex-stack pt-10'
 										style={{
 											width: '90%',
-											bottom: '5%',
+											bottom: '2%',
 										}}>
 										<div className='mr-2'>
 											<button

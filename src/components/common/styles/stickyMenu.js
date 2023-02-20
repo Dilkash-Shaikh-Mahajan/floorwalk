@@ -190,6 +190,33 @@ export const Styles = styled.div`
 					display: none;
 				}
 			}
+			.user-exist-btn {
+				margin-left: 70px;
+				margin-top: -1px;
+
+				a {
+					font-size: 13px;
+					color: #ffffff;
+					background: ${colors.gr_bg};
+					display: inline-block;
+					width: 110px;
+					height: 40px;
+					text-align: center;
+					text-transform: uppercase;
+					font-weight: 500;
+					padding: 11px;
+					border-radius: 5px;
+
+					&:hover {
+						background: ${colors.gr_bg2};
+					}
+				}
+
+				@media (max-width: 991px) {
+					display: none;
+				}
+			}
+		}
 		}
 		@media (max-width: 767px) {
 			display: none;

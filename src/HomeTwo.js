@@ -21,11 +21,21 @@ import {
 	interestAreaFunction,
 	subCategoriesFunction,
 } from './store/actions/Stepper';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import CourseFilter3 from './components/CourseFiter3';
 
 const HomeTwo = () => {
 	const dispatch = useDispatch();
+	const getSolutionsData = async () => {
+		const responseData = await axios.get(
+			'http://54.147.49.251/api/solutions/',
+			// config,
+		);
+		console.log(responseData);
+		dispatch(solutionsFunction(responseData.data));
+	};
+
 	const getIndustriesData = async () => {
 		const responseData = await axios.get(
 			'http://54.147.49.251/api/industries/',
@@ -56,10 +66,12 @@ const HomeTwo = () => {
 
 	useEffect(() => {
 		getInterestAreaData();
+		getSolutionsData();
 		getIndustriesData();
 		getCategoriesData();
 		getSubCategoriesData();
-	});
+	}, []);
+	const { categoriesData } = useSelector((store) => store.stepper);
 	return (
 		<div className='main-wrapper'>
 			{/* Header 2 */}
@@ -70,15 +82,19 @@ const HomeTwo = () => {
 
 			{/* Service Box */}
 			<ServiceBox />
-
+			{categoriesData.map((category, index) => (
+				<div key={index}>
+					<CourseFilter3
+						category={category.category_name}
+					/>
+				</div>
+			))}
 			{/* Course Filter */}
-			<CourseFilter />
 
 			{/* About Us 2 
                 <AboutUsTwo />*/}
 
 			{/* Course Filter */}
-			<CourseFilterBottom />
 
 			{/* Course Slider 
                 <CourseSlider />*/}

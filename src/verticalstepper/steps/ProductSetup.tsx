@@ -4,16 +4,21 @@ import { Field, ErrorMessage } from 'formik';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 type Props = {
-	audiencePreference?: boolean;
-	setAudiencePreference: (boolean: boolean) => void;
+	audiencePreference: boolean;
+	setAudiencePreference: any;
 };
 const ProductSetup: FC<Props> = ({
 	audiencePreference,
 	setAudiencePreference,
-}: Props) => {
+}: any) => {
 	const { interestArea, industriesData } = useSelector(
 		(store: any) => store.stepper,
 	);
+
+	const handleOptionChange = (event: any) => {
+		const value = event.target.value === '1' ? false : true;
+		setAudiencePreference(value);
+	};
 	return (
 		<div className='w-100'>
 			<div className='pb-10 pb-lg-15'>
@@ -119,14 +124,10 @@ const ProductSetup: FC<Props> = ({
 					<div className='d-flex'>
 						{/* <div className='col-lg-6 fv-row'> */}
 						<label className='d-flex flex-stack mb-5 me-4 cursor-pointer'>
-							<span className='form-check d-flex align-items-center form-check-custom form-check-solid'>
+							<span className='form-check d-flex align-items-center '>
 								<Field
 									className='form-check-input'
 									type='radio'
-									style={{
-										backgroundColor:
-											'cornflowerblue',
-									}}
 									name='accountPlan'
 									value='1'
 									onClick={() => {
@@ -160,14 +161,10 @@ const ProductSetup: FC<Props> = ({
 						{/* </div> */}
 						{/* <div className='col-lg-6 fv-row'> */}
 						<label className='d-flex flex-stack mb-5 cursor-pointer'>
-							<span className='form-check  d-flex align-items-center form-check-custom form-check-solid'>
+							<span className='form-check d-flex align-items-center '>
 								<Field
 									className='form-check-input'
 									type='radio'
-									style={{
-										backgroundColor:
-											'cornflowerblue',
-									}}
 									name='accountPlan'
 									value='2'
 									onClick={() => {
@@ -199,7 +196,7 @@ const ProductSetup: FC<Props> = ({
 					</div>
 				</div>
 
-				{audiencePreference ? (
+				{audiencePreference && (
 					<div className='row'>
 						<div className='col-lg-3 fv-row'>
 							<label className='form-label fw-bold fs-5 mb-3'>
@@ -514,8 +511,6 @@ const ProductSetup: FC<Props> = ({
 							)}
 						</div>
 					</div>
-				) : (
-					<div></div>
 				)}
 
 				{/* <div className='row' style={{marginTop:20}}>

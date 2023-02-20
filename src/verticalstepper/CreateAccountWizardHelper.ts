@@ -54,6 +54,7 @@ const createAccountSchemas = [
 const projectTargetSchema = Yup.object({
 	storeName: Yup.string().required().label('Store Name'),
 	storeAddress: Yup.string().required().label('Address'),
+	numberOfResponse: Yup.string().required().label('Number of Response'),
 	storeCity: Yup.string().required().label('City'),
 	storeState: Yup.string().required().label('State'),
 	storePostal: Yup.string().required().label('Postal'),
@@ -83,6 +84,7 @@ const inits: ICreateAccount = {
 export interface IProjectTarget {
 	storeName: string;
 	storeAddress: string;
+	numberOfResponse: string;
 	storeCity: string;
 	storeState: string;
 	storePostal: string;
@@ -90,6 +92,7 @@ export interface IProjectTarget {
 const projectTargetInit: IProjectTarget = {
 	storeName: '',
 	storeAddress: '',
+	numberOfResponse: '',
 	storeCity: '',
 	storeState: '',
 	storePostal: '',
