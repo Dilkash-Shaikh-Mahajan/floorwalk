@@ -135,12 +135,11 @@ const ProductTargeting: FC<Props> = ({
 									</label>
 
 									<Autocomplete
-										className='form-control form-control-lg form-control-solid'
+										className='form-control w-100 form-control-lg form-control-solid'
 										fullWidth={true}
 										disablePortal
 										id='combo-box-demo'
 										options={pincodes}
-										sx={{ width: 300 }}
 										getOptionLabel={(
 											option,
 										) => option.pincode}
@@ -175,6 +174,9 @@ const ProductTargeting: FC<Props> = ({
 											/>
 										)}
 									/>
+									<div className='text-danger mt-2'>
+										<ErrorMessage name='storePostal' />
+									</div>
 								</div>
 								<div className='fv-row mb-10'>
 									<label className='d-flex align-items-center form-label'>

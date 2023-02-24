@@ -58,7 +58,10 @@ export const Styles = styled.div`
 							padding-right: 6px;
 						}
 					}
-
+					.home-megamenu {
+						min-width: 68vw !important;
+						padding: 10px !important;
+					}
 					ul.dropdown {
 						position: absolute;
 						left: 0;
@@ -217,11 +220,11 @@ export const Styles = styled.div`
 				}
 			}
 		}
-		}
-		@media (max-width: 767px) {
-			display: none;
-		}
 	}
+	@media (max-width: 767px) {
+		display: none;
+	}
+
 	.sticky-menu.sticky {
 		display: block;
 

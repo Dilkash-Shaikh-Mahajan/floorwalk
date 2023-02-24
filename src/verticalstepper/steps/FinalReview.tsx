@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC } from 'react';
 import { Carousel } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { ICreateAccount } from '../CreateAccountWizardHelper';
 // import {Field, ErrorMessage} from 'formik'
 // import { Container, Row, Col, Table } from 'react-bootstrap';
@@ -33,10 +34,22 @@ const FinalReview: FC<Props> = ({
 	var interestAreas = stringInterestAreas?.split(',');
 	let storeData: any = sessionStorage.getItem('storeData');
 	storeData = JSON.parse(storeData);
+	let solutionPrice = 1200;
+	let sum = finalTargetData.reduce(function (
+		accumulator: number,
+		// curValue: { numberOfResponse: number },
+		curValue: any,
+	) {
+		return accumulator + parseInt(curValue.numberOfResponse);
+	}, 0);
+	const { solution } = useSelector((state: any) => state.solutions);
+
+	let allSolutionsPrice = sum * parseInt(solution.price);
+	let taxSolutionPrice = (allSolutionsPrice * 18) / 100;
 	return (
-		<div className='w-100'>
+		<div className='w-100 text-black'>
 			<div className='pb-0 pb-lg-15'>
-				<h2 className='fw-bolder fs-3 d-flex align-items-center text-dark'>
+				<h2 className='fw-bolder fs-4 d-flex align-items-center text-dark'>
 					Final Review
 					<i
 						className='fas fa-exclamation-circle ms-2 fs-7'
@@ -62,59 +75,55 @@ const FinalReview: FC<Props> = ({
 					{/* begin::Header */}
 
 					<div className='col-md-8'>
+						<h3 className='m-0 my-3 fw-bold fs-5'>
+							Project Setup
+						</h3>
 						<div
-							className={`row w-100`}
-							// style={{ backgroundColor: '#f3f4f5' }}
-						>
-							<h3
-								className='m-0 my-2 fw-bold fs-4'
-								style={{ color: '#454646' }}>
-								Project Setup
-							</h3>
+							className={`row w-100 p-3`}
+							style={{
+								backgroundColor: '#F2F9FF',
+								borderRadius: '6px',
+							}}>
 							<div className='col-md-6'>
 								<div className='d-flex text-start flex-row pt-2'>
-									<span className='fs-6'>
+									<span className='fw-bold fs-6'>
 										Project Name :{' '}
 									</span>
-									<span className='fw-bold fs-6'>
+									<span className='fs-6'>
 										{' '}
 										{projectName}
 									</span>
 								</div>
 								<div className='d-flex text-start flex-row pt-0'>
-									<span className='fs-6'>
+									<span className='fw-bold fs-6'>
 										Start Date :{' '}
 									</span>
-									<span className='fw-bold fs-6'>
+									<span className='fs-6 '>
 										{' '}
 										{startDate}
 									</span>
 								</div>
 								<div className='d-flex text-start flex-row pt-0'>
-									<span className='fs-6'>
+									<span className='fw-bold fs-6'>
 										End Date :{' '}
 									</span>
-									<span className='fw-bold fs-6'>
+									<span className='fs-6'>
 										{' '}
 										{endDate}
 									</span>
 								</div>
-								<div className='d-flex text-start flex-row pt-0'>
-									<span className='fs-6'>
+								<div className='text-start flex-row pt-0'>
+									<span className='fw-bold fs-6'>
 										Industry Selection :{' '}
 									</span>
-									<span className='fw-bold fs-6'>
+									<span className='fs-6'>
 										{' '}
 										{businessType}
 									</span>
 								</div>
 							</div>
-							<div className='col-md-6'>
-								<h3
-									className='fw-semibold fs-6'
-									style={{
-										color: '#454646',
-									}}>
+							<div className='col-md-6 mt-2'>
+								<h3 className='fw-bold fs-6'>
 									Demographics
 								</h3>
 								{audiencePreference &&
@@ -123,64 +132,62 @@ const FinalReview: FC<Props> = ({
 									occupation ||
 									incomeRange) ? (
 									<>
-										<div className='d-flex text-start flex-row pt-0'>
-											<span className='fs-6'>
+										<div className='text-start flex-row pt-0'>
+											<span className='fw-bold fs-6'>
 												Age
 												Range :{' '}
 											</span>
 											{/* <span className='fw-bold fs-6'> */}{' '}
-											<span className='fw-bold fs-6'>
-												<span className='fw-bold fs-6'>
-													{
-														stringAgeRange
-													}
-												</span>
+											<span className='fs-6'>
+												{
+													stringAgeRange
+												}
 											</span>
 										</div>
-										<div className='d-flex text-start flex-row pt-0'>
-											<span className='fs-6'>
+										<div className=' text-start flex-row pt-0'>
+											<span className='fw-bold fs-6'>
 												Occupation
 												:{' '}
 											</span>
 
-											<span className='fw-bold fs-6'>
+											<span className='fs-6'>
 												{
 													stringOccupation
 												}
 											</span>
 										</div>
-										<div className='d-flex text-start flex-row pt-0'>
-											<span className='fs-6'>
+										<div className=' text-start flex-row pt-0'>
+											<span className='fw-bold fs-6'>
 												Income
 												Range :{' '}
 											</span>
 
-											<span className='fw-bold fs-6'>
+											<span className='fs-6'>
 												{
 													stringIncomeRange
 												}
 											</span>
 										</div>
-										<div className='d-flex text-start flex-row pt-0'>
-											<span className='fs-6'>
+										<div className=' text-start flex-row pt-0'>
+											<span className='fw-bold fs-6'>
 												Car
 												Price
 												Range :{' '}
 											</span>
 
-											<span className='fw-bold fs-6'>
+											<span className='fs-6'>
 												{
 													stringCarPriceRange
 												}
 											</span>
 										</div>
-										<div className='d-flex text-start flex-row pt-0'>
-											<span className='fs-6'>
+										<div className=' text-start flex-row pt-0'>
+											<span className='fw-bold fs-6'>
 												Interest
 												Areas :{' '}
 											</span>
 
-											<span className='fw-bold fs-6'>
+											<span className='fs-6 '>
 												{
 													stringInterestAreas
 												}
@@ -197,31 +204,30 @@ const FinalReview: FC<Props> = ({
 							</div>
 						</div>
 
-						<div
-							className={`row w-100`}
-							// style={{ backgroundColor: '#f3f4f5' }}
-						>
-							<h3
-								className='m-0 my-2 fw-bold fs-4'
-								style={{ color: '#454646' }}>
-								Project Targeting
-							</h3>
-							<div className='row'>
-								{finalTargetData?.map(
-									(
-										store: any,
-										index: any,
-									) => (
+						<h3 className='m-0 my-3 fw-bold fs-5'>
+							Project Targeting
+						</h3>
+						<div className={`d-flex flex-wrap w-100 `}>
+							{finalTargetData?.map(
+								(store: any, index: any) => (
+									<div
+										key={index}
+										className='col-md-6'>
 										<div
-											key={index}
-											className='col-md-6'>
+											className='m-3 px-3 py-2 '
+											style={{
+												backgroundColor:
+													'#F2F9FF',
+												borderRadius:
+													'6px',
+											}}>
 											<div className='text-start flex-row pt-2'>
-												<span className='fs-6'>
+												<span className='fw-bold fs-6'>
 													Store
 													Name
 													:{' '}
 												</span>
-												<span className='fw-bold fs-6'>
+												<span className='fs-6 '>
 													{' '}
 													{
 														store.storeName
@@ -229,72 +235,74 @@ const FinalReview: FC<Props> = ({
 												</span>
 											</div>
 											<div className='text-start flex-row pt-0'>
-												<span className='fs-6'>
+												<span className='fw-bold fs-6'>
 													Store
 													Address
 													:{' '}
 												</span>
-												<span className='fw-bold fs-6'>
+												<span className='fs-6 '>
 													{
 														store.storeAddress
 													}
 												</span>
 											</div>
 											<div className='text-start flex-row pt-0'>
-												<span className='fs-6'>
+												<span className='fw-bold  fs-6'>
 													Store
 													City
 													:{' '}
 												</span>
-												<span className='fw-bold fs-6'>
+												<span className='fs-6 '>
 													{
 														store.storeCity
 													}
 												</span>
 											</div>
 											<div className='text-start flex-row pt-0'>
-												<span className='fs-6'>
+												<span className='fw-bold fs-6'>
 													Store
 													State
 													:{' '}
 												</span>
-												<span className='fw-bold fs-6'>
+												<span className='fs-6 '>
 													{
 														store.storeState
 													}
 												</span>
 											</div>
 											<div className='text-start flex-row pt-0'>
-												<span className='fs-6'>
+												<span className='fw-bold  fs-6'>
 													Store
 													Postal
 													:{' '}
 												</span>
-												<span className='fw-bold fs-6'>
+												<span className='fs-6 '>
 													{
 														store.storePostal
 													}
 												</span>
 											</div>
 										</div>
-									),
-								)}
-							</div>
+									</div>
+								),
+							)}
 						</div>
 
 						<div
 							className={`py-3 my-2 card-rounded w-100`}
 							// style={{ backgroundColor: '#f3f4f5' }}
 						>
-							<h3
-								className='m-0 my-2 fw-bold fs-4'
-								style={{ color: '#454646' }}>
+							<h3 className='m-0 my-2 fw-bold fs-5'>
 								Project Detail
 							</h3>
 							{finalFormData?.map(
 								(data: any, index: number) => (
 									<div
-										className='d-flex mt-3 align-items-center mb-7'
+										className='d-flex mt-3 align-items-center mb-7 p-3'
+										style={{
+											backgroundColor:
+												'#F2F9FF',
+										}}
 										key={index}>
 										<div className='symbol symbol-50px'>
 											{data.fileObj.map(
@@ -316,13 +324,13 @@ const FinalReview: FC<Props> = ({
 											)}
 										</div>
 										<div className='d-flex flex-column'>
-											<div className='d-flex text-start flex-row pt-0'>
+											<div className=' text-start flex-row pt-0'>
 												<span className='fs-6'>
 													Product
 													Description
 													:{' '}
 												</span>
-												<span className='fw-bold fs-6'>
+												<span className='fw-bold  fs-6'>
 													{
 														data.itemDescription
 													}
@@ -334,7 +342,7 @@ const FinalReview: FC<Props> = ({
 													Price
 													:{' '}
 												</span>
-												<span className='fw-bold fs-6'>
+												<span className=' fw-bold fs-6'>
 													$
 													{
 														data.productPrice
@@ -348,59 +356,84 @@ const FinalReview: FC<Props> = ({
 						</div>
 					</div>
 					<div className='col-md-4'>
+						<h3 className='m-0 my-3 fw-bold fs-5'>
+							Project Summary
+						</h3>
 						<div
-							className={`px-9 py-3 mt-2 mb-3 card-rounded w-100`}
-							// style={{ backgroundColor: '#f3f4f5' }}
-						>
-							<h3
-								className='m-0 fw-bold fs-4'
-								style={{ color: '#454646' }}>
-								Project Summary
-							</h3>
+							className={` p-3 mt-2 mb-3 card-rounded w-100`}
+							style={{
+								backgroundColor: '#F2F9FF',
+								borderRadius: '6px',
+							}}>
 							<div className='d-flex text-center justify-content-between flex-row pt-2'>
-								<span className='fs-6'>
-									Requested Responses
+								<span className='fs-6 '>
+									Requested Responses :
 								</span>
-								<span className='fw-bold fs-6'>
+								<span className='fs-6'>
 									{' '}
-									{5}
+									{sum}
 								</span>
 							</div>
 							<div className='d-flex text-center justify-content-between flex-row pt-2'>
 								<span className='fs-6'>
 									Solution Price :{' '}
 								</span>
-								<span className='fw-bold fs-6'>
+								<span className='fs-6'>
 									{' '}
-									{1100}
+									{parseInt(solution.price)}
 								</span>
 							</div>
 							<div className='d-flex text-center justify-content-between flex-row pt-2'>
-								<span className='fs-6'>
+								<span className='fs-6 '>
 									Sub Total :{' '}
 								</span>
-								<span className='fw-bold fs-6'>
+								<span className='fs-6'>
 									{' '}
-									{5500}
+									{allSolutionsPrice}
 								</span>
 							</div>
 							<div className='d-flex text-center justify-content-between flex-row pt-0'>
-								<span className='fs-6'>
+								<span className='fw-bold fs-6'>
 									Tax (18%):{' '}
 								</span>
-								<span className='fw-bold fs-6'>
+								<span className='fs-6'>
 									{' '}
-									{startDate}
+									{taxSolutionPrice}
 								</span>
 							</div>
 							<div className='d-flex text-center justify-content-between flex-row pt-0'>
-								<span className='fs-6'>
-									Total :{' '}
-								</span>
 								<span className='fw-bold fs-6'>
-									{' '}
-									{endDate}
+									Total Price :{' '}
 								</span>
+								<span className='fs-6 '>
+									{' '}
+									{allSolutionsPrice +
+										taxSolutionPrice}
+								</span>
+							</div>
+							<div
+								className='my-3'
+								style={{
+									border: '1px solid #1789E4',
+								}}></div>
+							<div className='d-flex text-center justify-content-between flex-row pt-0'>
+								<span className='fs-6'>
+									Project Total :{' '}
+								</span>
+								<span className=' fs-6'>
+									{' '}
+									{allSolutionsPrice +
+										taxSolutionPrice}
+								</span>
+							</div>
+							<div className='text-center my-3'>
+								<button
+									type='submit'
+									className='btn btn-lg btn-primary px-3 py-2 continueButtonTop'>
+									<span className='indicator-label'>
+										Pay Now
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>

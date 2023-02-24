@@ -24,6 +24,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import CourseFilter3 from './components/CourseFiter3';
+import { solutionsFunction } from './store/actions/Solutions';
 
 const HomeTwo = () => {
 	const dispatch = useDispatch();
@@ -32,7 +33,6 @@ const HomeTwo = () => {
 			'http://54.147.49.251/api/solutions/',
 			// config,
 		);
-		console.log(responseData);
 		dispatch(solutionsFunction(responseData.data));
 	};
 

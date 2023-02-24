@@ -3,18 +3,23 @@ import Datas from '../../../data/course/item.json';
 import { Link } from 'react-router-dom';
 import { Col } from 'react-bootstrap';
 import Pagination from './../../../components/Pagination';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { solutionFunction } from '../../../store/actions/Solutions';
 
 const CourseItemsGrid = () => {
+	const dispatch = useDispatch();
 	const { solutions } = useSelector((state) => state.solutions);
-	console.log(solutions);
 	return (
 		<Fragment>
 			{/* Course Item */}
 			{solutions.map((data, i) => (
 				<Col lg='6' md='12' key={i}>
 					<div className='course-item'>
-						<Link to={`/course-details/${data.id}`}>
+						<Link
+							onClick={() =>
+								dispatch(solutionFunction(data))
+							}
+							to={`/course-details/${data.id}`}>
 							<div
 								className='course-image'
 								style={{
@@ -53,7 +58,13 @@ const CourseItemsGrid = () => {
 						<div className='course-content'>
 							<h6 className='heading'>
 								<Link
-									// to={`/course-details/${data.name}`}>
+									onClick={() =>
+										dispatch(
+											solutionFunction(
+												data,
+											),
+										)
+									}
 									to={`/course-details/${data.id}`}>
 									{data.name}
 								</Link>

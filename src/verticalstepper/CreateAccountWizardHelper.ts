@@ -19,7 +19,7 @@ export interface ICreateAccount {
 	occupation?: Array<string>;
 	incomeRange?: Array<string>;
 	carPriceRange?: Array<string>;
-	interestAreas?: Array<string>;
+	solutionInterestAreas?: Array<string>;
 }
 
 const createAccountSchemas = [
@@ -29,32 +29,26 @@ const createAccountSchemas = [
 		endDate: Yup.string().required().label('End Date'),
 		businessType: Yup.string().required().label('Business Type'),
 	}),
-	// Yup.object({
-	// 	storeName: Yup.string().required().label('Store Name'),
-	// 	storeAddress: Yup.string().required().label('Address'),
-	// 	storeCity: Yup.string().required().label('City'),
-	// 	storeState: Yup.string().required().label('State'),
-	// 	storePostal: Yup.string().required().label('Postal'),
-	// }),
-	// Yup.object({
-	// 	storeName: Yup.string().required().label('Store Name'),
-	// 	storeAddress: Yup.string().required().label('Address'),
-	// 	storeCity: Yup.string().required().label('City'),
-	// 	storeState: Yup.string().required().label('State'),
-	// 	storePostal: Yup.string().required().label('Postal'),
-	// }),
 	Yup.object({
-		nameOnCard: Yup.string().required().label('Name On Card'),
-		cardNumber: Yup.string().required().label('Card Number'),
-		cardExpiryMonth: Yup.string().required().label('Expiration Month'),
-		cardExpiryYear: Yup.string().required().label('Expiration Year'),
-		cardCvv: Yup.string().required().label('CVV'),
+		storeName: Yup.string().nullable(true).notRequired(),
+	}),
+	Yup.object({
+		storeName: Yup.string().nullable(true).notRequired(),
+	}),
+	Yup.object({
+		storeName: Yup.string().nullable(true).notRequired(),
+	}),
+	Yup.object({
+		projectName: Yup.string().required().label('Project Name'),
+		startDate: Yup.string().required().label('Start Date'),
+		endDate: Yup.string().required().label('End Date'),
+		businessType: Yup.string().required().label('Business Type'),
 	}),
 ];
 const projectTargetSchema = Yup.object({
 	storeName: Yup.string().required().label('Store Name'),
 	storeAddress: Yup.string().required().label('Address'),
-	numberOfResponse: Yup.string().required().label('Number of Response'),
+	numberOfResponse: Yup.number().required().label('Number of Response'),
 	storeCity: Yup.string().required().label('City'),
 	storeState: Yup.string().required().label('State'),
 	storePostal: Yup.string().required().label('Postal'),
@@ -79,12 +73,12 @@ const inits: ICreateAccount = {
 	occupation: [],
 	incomeRange: [],
 	carPriceRange: [],
-	interestAreas: [],
+	solutionInterestAreas: [],
 };
 export interface IProjectTarget {
 	storeName: string;
 	storeAddress: string;
-	numberOfResponse: string;
+	numberOfResponse: number;
 	storeCity: string;
 	storeState: string;
 	storePostal: string;
@@ -92,7 +86,7 @@ export interface IProjectTarget {
 const projectTargetInit: IProjectTarget = {
 	storeName: '',
 	storeAddress: '',
-	numberOfResponse: '',
+	numberOfResponse: 0,
 	storeCity: '',
 	storeState: '',
 	storePostal: '',

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	solutions: [],
-	accessToken: '',
+	solution: {},
 };
 
 export const solutionSlice = createSlice({
@@ -12,13 +12,13 @@ export const solutionSlice = createSlice({
 		solutionsFunction: (state, action) => {
 			state.solutions = action.payload;
 		},
-		accessTokenFunction: (state, action) => {
-			state.accessToken = action.payload;
+		solutionFunction: (state, action) => {
+			state.solution = action.payload;
 		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { accessTokenFunction, solutionsFunction } = solutionSlice.actions;
+export const { solutionFunction, solutionsFunction } = solutionSlice.actions;
 
 export default solutionSlice.reducer;

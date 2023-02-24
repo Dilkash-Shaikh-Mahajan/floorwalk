@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Styles } from './styles/courseFilter.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { solutionsFunction } from '../store/actions/Solutions';
+import {
+	solutionFunction,
+	solutionsFunction,
+} from '../store/actions/Solutions';
 import axios from 'axios';
 function CourseFilter3({ category }) {
 	const dispatch = useDispatch();
@@ -14,7 +17,6 @@ function CourseFilter3({ category }) {
 			'http://54.147.49.251/api/solutions/',
 			// config,
 		);
-		console.log(responseData);
 		setSubCategoriesData(responseData.data);
 		dispatch(solutionsFunction(responseData.data));
 	};
@@ -30,7 +32,6 @@ function CourseFilter3({ category }) {
 			return data.category == category;
 		}),
 	);
-	console.log(solutions);
 	const filterSolution = (filter) => {
 		setCurrentFilter(filter);
 		if (filter === 'All') {
@@ -49,7 +50,6 @@ function CourseFilter3({ category }) {
 			);
 		}
 	};
-	console.log(dataList);
 
 	return (
 		<Styles>
@@ -121,7 +121,14 @@ function CourseFilter3({ category }) {
 										key={i}>
 										<div className='course-item'>
 											<Link
-												to={`course-detail/${data.id}`}>
+												onClick={() =>
+													dispatch(
+														solutionFunction(
+															data,
+														),
+													)
+												}
+												to={`course-details/${data.id}`}>
 												<div
 													className='course-image'
 													style={{
@@ -140,7 +147,14 @@ function CourseFilter3({ category }) {
 											<div className='course-content'>
 												<h6 className='heading'>
 													<Link
-														to={`course-detail/${data.id}`}>
+														onClick={() =>
+															dispatch(
+																solutionFunction(
+																	data,
+																),
+															)
+														}
+														to={`course-details/${data.id}`}>
 														{
 															data.name
 														}

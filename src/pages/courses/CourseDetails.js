@@ -13,13 +13,11 @@ import axios from 'axios';
 function CourseDetails() {
 	const { id } = useParams();
 	const [responseData, setResponseData] = useState([]);
-	console.log(id);
 	const getSolution = async () => {
 		let solutionData = await axios.get(
 			`http://54.147.49.251/api/solutions/${id}/`,
 		);
 		setResponseData(solutionData.data);
-		console.log(responseData);
 	};
 	useEffect(() => {
 		getSolution();

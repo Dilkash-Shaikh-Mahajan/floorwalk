@@ -19,8 +19,6 @@ import { useDispatch } from 'react-redux';
 
 import RegistrationStepper from './steps/RegistrationStepper';
 const Vertical = () => {
-	const history = useHistory();
-	const dispatch = useDispatch();
 	let location: any = useLocation();
 	const [audiencePreference, setAudiencePreference] = useState(false);
 	const stepperRef = useRef<HTMLDivElement | null>(null);
@@ -69,6 +67,7 @@ const Vertical = () => {
 			}
 		}
 		setInitValues(values);
+		console.log(values);
 		sessionStorage.setItem('projectName', values.projectName);
 		sessionStorage.setItem('startDate', values.startDate);
 		sessionStorage.setItem('endDate', values.endDate);
@@ -78,7 +77,7 @@ const Vertical = () => {
 		let valueOccupation = values?.occupation?.toString();
 		let valueIncomeRange = values?.incomeRange?.toString();
 		let valueCarPriceRange = values?.carPriceRange?.toString();
-		let valueInterestAreas = values?.interestAreas?.toString();
+		let valueInterestAreas = values?.solutionInterestAreas?.toString();
 		sessionStorage.setItem('ageRange', JSON.stringify(valueAgeRange));
 		sessionStorage.setItem(
 			'occupation',
@@ -181,7 +180,9 @@ const Vertical = () => {
 					id='kt_create_account_stepper'>
 					{/* begin::Aside*/}
 					<div
-						className='card d-flex justify-content-center justify-content-xl-start flex-row w-xl-300px w-xxl-400px me-9'
+						className={
+							'card d-flex justify-content-center justify-content-xl-start flex-row w-xl-300px me-9'
+						}
 						style={{ border: 0 }}>
 						{/* begin::Wrapper*/}
 						<div className='card-body px-6 px-lg-10 px-xxl-15 py-20'>
@@ -440,8 +441,8 @@ const Vertical = () => {
 
 									<div data-kt-stepper-element='content'>
 										<RegistrationStepper
-											stepper={
-												stepper
+											finalTargetData={
+												finalTargetData
 											}
 										/>
 									</div>

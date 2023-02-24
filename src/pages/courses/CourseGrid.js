@@ -17,7 +17,6 @@ const CourseGrid = () => {
 			'http://54.147.49.251/api/solutions/',
 			// config,
 		);
-		console.log(responseData);
 		dispatch(solutionsFunction(responseData.data));
 	};
 

@@ -202,18 +202,7 @@ const ProductSetup: FC<Props> = ({
 							<label className='form-label fw-bold fs-5 mb-3'>
 								Age Range
 							</label>
-							{/* <label className='form-check form-check-solid'>
-								<input
-									className='form-check-input'
-									name='communication[]'
-									type='checkbox'
-									defaultChecked={false}
-									onChange={() => {}}
-								/>
-								<span className='fw-bold ps-2 fs-6'>
-									18 and Above
-								</span>
-							</label> */}
+
 							<label className='form-check form-check-solid'>
 								<Field
 									className='form-check-input'
@@ -483,7 +472,7 @@ const ProductSetup: FC<Props> = ({
 								</span>
 							</label>
 						</div>
-						<div className='col-lg-3 fv-row'>
+						<div className='col-lg-3 fv-row mb-20'>
 							<label className='form-label fw-bold fs-5 mb-3'>
 								Interest Areas
 							</label>
@@ -494,12 +483,11 @@ const ProductSetup: FC<Props> = ({
 										key={i}>
 										<Field
 											className='form-check-input'
-											name='interestAreas'
+											name='solutionInterestAreas'
 											type='checkbox'
 											value={
 												interest.interest_area_name
 											}
-											// defaultChecked={false}
 										/>
 										<span className='fw-bold ps-2 fs-6'>
 											{
