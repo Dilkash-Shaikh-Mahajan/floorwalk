@@ -21,7 +21,7 @@ const Sidebar = () => {
 			<CDBSidebar textColor='#000' backgroundColor='#fff'>
 				<CDBSidebarHeader
 					prefix={<i className='fa fa-bars fa-large'></i>}>
-					<a
+					<Link
 						href='/'
 						className='text-decoration-none'
 						style={{
@@ -30,7 +30,7 @@ const Sidebar = () => {
 							fontWeight: 600,
 						}}>
 						Your Dashboard
-					</a>
+					</Link>
 				</CDBSidebarHeader>
 
 				<CDBSidebarContent className='sidebar-content'>
@@ -93,10 +93,7 @@ const Sidebar = () => {
 							}}>
 							Manage
 						</h1>
-						<Link
-							to={
-								'/user_dashboard/user_changepassword'
-							}>
+						<Link to={'/user_dashboard/user_projects'}>
 							<CDBSidebarMenuItem
 								icon='chart-line'
 								iconType='solid'
@@ -105,7 +102,7 @@ const Sidebar = () => {
 								Projects
 							</CDBSidebarMenuItem>
 						</Link>
-						<Link to={'/user_dashboard/user_orders'}>
+						<Link to={'/user_dashboard/user_stores'}>
 							<CDBSidebarMenuItem
 								icon='exclamation-circle'
 								iconType='solid'
@@ -127,10 +124,7 @@ const Sidebar = () => {
 							}}>
 							Payments
 						</h1>
-						<Link
-							to={
-								'/user_dashboard/user_changepassword'
-							}>
+						<Link to={'/user_dashboard/user_invoices'}>
 							<CDBSidebarMenuItem
 								icon='chart-line'
 								iconType='solid'

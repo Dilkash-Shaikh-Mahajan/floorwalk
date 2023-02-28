@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Sidebar from './sidebar/sidebar';
 import MainUserRoutes from './MainUserRoutes';
+import Footer from '../components/Footer';
+import HeaderTwo from '../components/HeaderTwo';
 
 export default class MainLayout extends Component {
 	render() {
@@ -16,15 +18,19 @@ export default class MainLayout extends Component {
 			},
 		};
 		return (
-			<div style={styles.contentDiv}>
-				<Sidebar />
-				<div style={styles.contentMargin}>
-					{/* <h1 style={{ padding: '20%' }}>
+			<>
+				<HeaderTwo />
+				<div style={styles.contentDiv}>
+					<Sidebar />
+					<div style={styles.contentMargin}>
+						{/* <h1 style={{ padding: '20%' }}>
 						This is Content Area
 					</h1> */}
-					<MainUserRoutes />
+						<MainUserRoutes />
+					</div>
 				</div>
-			</div>
+				<Footer />
+			</>
 		);
 	}
 }
