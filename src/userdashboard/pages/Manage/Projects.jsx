@@ -42,7 +42,7 @@ const Projects = () => {
 		},
 	];
 	const rows = [
-		{ OrderId: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+		{ OrderId: 1, Customer: 'Snow Jon', Order: 'T shirt', age: 35 },
 		{ OrderId: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
 		{ OrderId: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
 		{ OrderId: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
@@ -62,7 +62,7 @@ const Projects = () => {
 			<div style={{ height: 400, width: '100%' }}>
 				<DataGrid
 					rows={rows}
-					getRowId={(row) => row.internalId}
+					getRowId={(row) => row.OrderId}
 					columns={columns}
 					pageSize={5}
 					rowsPerPageOptions={[5]}
