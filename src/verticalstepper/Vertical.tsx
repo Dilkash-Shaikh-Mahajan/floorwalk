@@ -14,28 +14,39 @@ import {
 } from './CreateAccountWizardHelper';
 import './sass/style.scss';
 import clsx from 'clsx';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import RegistrationStepper from './steps/RegistrationStepper';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { isUserAlreadyRegisteredFunction } from '../store/actions/Stepper';
+import { setLoggedUser } from '../store/actions/Auth';
 const Vertical = () => {
 	let location: any = useLocation();
+	const dispatch = useDispatch();
 	const [audiencePreference, setAudiencePreference] = useState(false);
 	const stepperRef = useRef<HTMLDivElement | null>(null);
 	const stepper = useRef<StepperComponent | any>(null);
 	const [currentSchema, setCurrentSchema] = useState(
 		createAccountSchemas[0],
 	);
+	useEffect(() => {
+		dispatch(isUserAlreadyRegisteredFunction(false));
+	}, []);
+	const { solution } = useSelector((state: any) => state.solutions);
 	const [finalFormData, setFinalFormData] = useState<[]>([]);
 	const [finalTargetData, setFinalTargetData] = useState<[]>([]);
 	const [initValues, setInitValues] = useState<ICreateAccount>(inits);
+	const [registerUser, setRegisterUser] = useState<any>();
+
 	let isAuth = true;
 	const loadStepper = () => {
 		stepper.current = StepperComponent.createInsance(
 			stepperRef.current as HTMLDivElement,
 		);
 	};
-
+	const { user } = useSelector((state: any) => state.auth);
 	const prevStep = () => {
 		if (!stepper.current) {
 			return;
@@ -48,19 +59,96 @@ const Vertical = () => {
 		);
 	};
 	let storeSecondAddress: any = [];
-	const submitStep = (values: ICreateAccount, actions: FormikValues) => {
+	const submitStep = async (
+		values: ICreateAccount,
+		actions: FormikValues,
+	) => {
+		console.log(values);
 		if (!stepper.current) {
 			return;
 		}
+		if (stepper.current.currentStepIndex === 5) {
+			if (values.emailId) {
+				let formData = {
+					email: values.emailId,
+					password: values.password,
+					password2: values.cpassword,
+					first_name: values.firstName,
+					last_name: values.lastName,
+					company: values.companyName,
+					phone_number: values.mobileNumber,
+					address: values.address,
+					city: values.city,
+					state: values.state,
+					pincode: values.pincode,
+				};
+				try {
+					const { data } = await axios.post(
+						'http://54.147.49.251/api/register',
+						formData,
+					);
+					dispatch(setLoggedUser(data));
+					// stepper.current.goPrev();
+				} catch (error: any) {
+					console.log(error.response.status);
+					if (error?.response.status === 400) {
+						dispatch(
+							isUserAlreadyRegisteredFunction(true),
+						);
+						// stepper.current.goPrev();
+						toast.error(error?.response);
+					}
+				}
+				let finalStepperData = {
+					order_id: 'FW00003',
+					order_date: '2023-02-28 12:07:38.038379+00:00',
+					user: user.id,
+					category: 3,
+					subcategory: 4,
+					solution: solution.id,
+					project_name: 'Cade Weaver',
+					start_date: '1985-03-04',
+					end_date: '1981-01-16',
+					audience_preference: values.accountPlan,
+					ageRange: [],
+					occupation: values.occupation?.toString(),
+					// businessType: 'Event Management',
+					incomeRange: [],
+					carPriceRange: [],
+					// solutionInterestAreas: [],
+					total_responses: '10',
+					solution_price: '2000',
+					subtotal: '20000',
+					tax_per: '18',
+					total_tax: '3600',
+					final_total: '23600',
+				};
+				try {
+					console.log(finalStepperData);
+					const steppperRes = await axios.post(
+						'http://54.147.49.251/api/add-order-detail',
+						finalStepperData,
+					);
+					console.log(steppperRes);
+				} catch (error: any) {
+					console.log(error.response.status);
+					if (error?.response.status === 400) {
+						dispatch(
+							isUserAlreadyRegisteredFunction(true),
+						);
+						stepper.current.goPrev();
+						toast.error(error?.response);
+					}
+				}
+			}
+		}
 		if (stepper.current.currentStepIndex === 2) {
-			console.warn('vdvd', finalTargetData);
 			if (finalTargetData.length === 0) {
 				alert('Please Add Atleast one Store');
 				stepper.current.goPrev();
 			}
 		}
 		if (stepper.current.currentStepIndex === 3) {
-			console.warn('vdvd', finalTargetData);
 			if (finalFormData.length === 0) {
 				alert('Please Add Atleast one Store');
 				stepper.current.goPrev();
@@ -113,8 +201,9 @@ const Vertical = () => {
 	useEffect(() => {
 		const topBtn: any = document.querySelector('.continueButtonTop');
 		const backTopBtn: any = document.querySelector('.backButtonTop');
-
-		topBtn.addEventListener('click', smoothScrollBackToTop);
+		if (topBtn) {
+			topBtn.addEventListener('click', smoothScrollBackToTop);
+		}
 		backTopBtn.addEventListener('click', smoothScrollBackToTop);
 
 		function smoothScrollBackToTop() {
@@ -169,11 +258,11 @@ const Vertical = () => {
 	}, []);
 	return (
 		<div
-			className={clsx('app-content flex-column-fluid')}
+			className='app-content flex-column-fluid'
 			style={{ backgroundColor: '#f5f8fa' }}>
 			<div
 				id='kt_app_content_container'
-				className={clsx('app-container container-fluid')}>
+				className='app-container container-fluid'>
 				<div
 					ref={stepperRef}
 					className='stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid'
@@ -181,11 +270,14 @@ const Vertical = () => {
 					{/* begin::Aside*/}
 					<div
 						className={
-							'card d-flex justify-content-center justify-content-xl-start flex-row w-xl-300px me-9'
+							'card d-flex justify-content-center justify-content-xl-start flex-row  me-9'
 						}
-						style={{ border: 0 }}>
+						style={{
+							border: 0,
+							minWidth: '24%',
+						}}>
 						{/* begin::Wrapper*/}
-						<div className='card-body px-6 px-lg-10 px-xxl-15 py-20'>
+						<div className='card-body px-6 px-lg-12 px-xxl-15 py-20'>
 							{/* begin::Nav*/}
 							<div className='stepper-nav'>
 								{/* begin::Step 1*/}
@@ -459,7 +551,7 @@ const Vertical = () => {
 													prevStep
 												}
 												type='button'
-												className='btn btn-lg btn-light-primary me-3 backButtonTop'
+												className='btn btn-lg btn-stepper me-3 backButtonTop'
 												data-kt-stepper-action='previous'>
 												<KTSVG
 													path='/media/icons/duotune/arrows/arr063.svg'
@@ -470,32 +562,41 @@ const Vertical = () => {
 										</div>
 
 										<div>
-											<button
-												type='submit'
-												className='btn btn-lg btn-primary me-3 continueButtonTop'>
-												<span className='indicator-label'>
-													{stepper
-														.current
-														?.currentStepIndex !==
-														stepper
+											{stepper
+												.current
+												?.currentStepIndex ===
+											stepper
+												.current
+												?.totatStepsNumber ? (
+												''
+											) : (
+												<button
+													type='submit'
+													className='btn btn-lg btn-stepper me-3 continueButtonTop'>
+													<span className='indicator-label'>
+														{stepper
 															.current
-															?.totatStepsNumber! -
-															1 &&
-														'Continue'}
-													{stepper
-														.current
-														?.currentStepIndex ===
-														stepper
+															?.currentStepIndex !==
+															stepper
+																.current
+																?.totatStepsNumber! -
+																1 &&
+															'Continue'}
+														{stepper
 															.current
-															?.totatStepsNumber! -
-															1 &&
-														'Pay Now'}
-													<KTSVG
-														path='/media/icons/duotune/arrows/arr064.svg'
-														className='svg-icon-3 ms-2 me-0'
-													/>
-												</span>
-											</button>
+															?.currentStepIndex ===
+															stepper
+																.current
+																?.totatStepsNumber! -
+																1 &&
+															'Pay Now'}
+														<KTSVG
+															path='/media/icons/duotune/arrows/arr064.svg'
+															className='svg-icon-3 ms-2 me-0'
+														/>
+													</span>
+												</button>
+											)}
 										</div>
 									</div>
 								</Form>

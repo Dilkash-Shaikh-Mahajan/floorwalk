@@ -1,48 +1,41 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC } from 'react';
-import { Carousel } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { ICreateAccount } from '../CreateAccountWizardHelper';
-// import {Field, ErrorMessage} from 'formik'
-// import { Container, Row, Col, Table } from 'react-bootstrap';
-// import { Styles } from '../../pages/shop/styles/cart';
-import { KTSVG, toAbsoluteUrl } from '../helpers';
-type Props = {
-	audiencePreference?: boolean;
-	finalFormData?: any;
-	finalTargetData: any;
-};
-const FinalReview: FC<Props> = ({
+import { useHistory } from 'react-router-dom';
+import { KTSVG } from '../helpers';
+
+// 	audiencePreference?: boolean,
+// 	finalFormData?: any,
+// 	finalTargetData: any,
+const FinalReview = ({
 	audiencePreference,
 	finalFormData,
 	finalTargetData,
-}: Props) => {
-	let projectName = sessionStorage.getItem('projectName');
-	let startDate = sessionStorage.getItem('startDate');
-	let endDate = sessionStorage.getItem('endDate');
-	let businessType = sessionStorage.getItem('businessType');
+}) => {
+	const { solution } = useSelector((state) => state.solutions);
+	const history = useHistory();
 
-	let stringAgeRange = sessionStorage.getItem('ageRange');
-	var ageRange = stringAgeRange?.split(',');
-	let stringOccupation = sessionStorage.getItem('occupation');
-	var occupation = stringOccupation?.split(',');
-	let stringIncomeRange = sessionStorage.getItem('incomeRange');
-	var incomeRange = stringIncomeRange?.split(',');
-	let stringCarPriceRange = sessionStorage.getItem('carPriceRange');
-	var carPriceRange = stringCarPriceRange?.split(',');
-	let stringInterestAreas = sessionStorage.getItem('interestAreas');
-	var interestAreas = stringInterestAreas?.split(',');
-	let storeData: any = sessionStorage.getItem('storeData');
-	storeData = JSON.parse(storeData);
-	let solutionPrice = 1200;
-	let sum = finalTargetData.reduce(function (
-		accumulator: number,
-		// curValue: { numberOfResponse: number },
-		curValue: any,
-	) {
+	const { firstPage, secondPage, thirdPage } = useSelector(
+		(state) => state.stepperData,
+	);
+	const {
+		projectName,
+		startDate,
+		endDate,
+		businessType,
+		accountPlan,
+		ageRange,
+		carPriceRange,
+		incomeRange,
+		occupation,
+		solutionInterestAreas,
+	} = firstPage;
+	console.log('firstPage', firstPage);
+	console.log('secondPage', secondPage);
+	console.log('thirdPage', thirdPage);
+	let sum = secondPage.reduce(function (accumulator, curValue) {
 		return accumulator + parseInt(curValue.numberOfResponse);
 	}, 0);
-	const { solution } = useSelector((state: any) => state.solutions);
 
 	let allSolutionsPrice = sum * parseInt(solution.price);
 	let taxSolutionPrice = (allSolutionsPrice * 18) / 100;
@@ -52,8 +45,11 @@ const FinalReview: FC<Props> = ({
 		style: 'currency',
 		currency: 'INR',
 	});
+	const handlePage = () => {
+		history.push('/new_stepper/5');
+	};
 	return (
-		<div className='w-100 text-black'>
+		<div className='w-100 newStepperRightSide text-black'>
 			<div className='pb-0 pb-lg-15'>
 				<h2 className='fw-bolder fs-4 d-flex align-items-center text-dark'>
 					Final Review
@@ -133,7 +129,7 @@ const FinalReview: FC<Props> = ({
 									<h3 className='fw-bold fs-6'>
 										Demographics
 									</h3>
-									{audiencePreference &&
+									{accountPlan === 1 &&
 									(ageRange ||
 										carPriceRange ||
 										occupation ||
@@ -148,7 +144,7 @@ const FinalReview: FC<Props> = ({
 												{/* <span className='fw-bold fs-6'> */}{' '}
 												<span className='fs-6'>
 													{
-														stringAgeRange
+														ageRange
 													}
 												</span>
 											</div>
@@ -160,7 +156,7 @@ const FinalReview: FC<Props> = ({
 
 												<span className='fs-6'>
 													{
-														stringOccupation
+														occupation
 													}
 												</span>
 											</div>
@@ -173,7 +169,7 @@ const FinalReview: FC<Props> = ({
 
 												<span className='fs-6'>
 													{
-														stringIncomeRange
+														incomeRange
 													}
 												</span>
 											</div>
@@ -187,7 +183,7 @@ const FinalReview: FC<Props> = ({
 
 												<span className='fs-6'>
 													{
-														stringCarPriceRange
+														carPriceRange
 													}
 												</span>
 											</div>
@@ -200,7 +196,7 @@ const FinalReview: FC<Props> = ({
 
 												<span className='fs-6 '>
 													{
-														stringInterestAreas
+														solutionInterestAreas
 													}
 												</span>
 											</div>
@@ -221,177 +217,161 @@ const FinalReview: FC<Props> = ({
 							Project Targeting
 						</h3>
 						<div className={`d-flex flex-wrap w-100 `}>
-							{finalTargetData?.map(
-								(store: any, index: any) => (
+							{secondPage?.map((store, index) => (
+								<div
+									key={index}
+									className='col-md-6'>
 									<div
-										key={index}
-										className='col-md-6'>
-										<div
-											className={
-												index %
-													2 ===
-												0
-													? 'ms-0 mb-3 me-3 px-3 py-2 '
-													: 'me-0 mb-3 ms-3 px-3 py-2 '
-											}
-											style={{
-												backgroundColor:
-													'#F2F9FF',
-												borderRadius:
-													'6px',
-											}}>
-											<div className='text-start flex-row pt-2'>
-												<span className='fw-bold fs-6'>
-													Store
-													Name
-													:{' '}
-												</span>
-												<span className='fs-6 '>
-													{' '}
-													{
-														store.storeName
-													}
-												</span>
-											</div>
-											<div className='text-start flex-row pt-0'>
-												<span className='fw-bold fs-6'>
-													Store
-													Address
-													:{' '}
-												</span>
-												<span className='fs-6 '>
-													{
-														store.storeAddress
-													}
-												</span>
-											</div>
-											<div className='text-start flex-row pt-0'>
-												<span className='fw-bold  fs-6'>
-													Store
-													City
-													:{' '}
-												</span>
-												<span className='fs-6 '>
-													{
-														store.storeCity
-													}
-												</span>
-											</div>
-											<div className='text-start flex-row pt-0'>
-												<span className='fw-bold fs-6'>
-													Store
-													State
-													:{' '}
-												</span>
-												<span className='fs-6 '>
-													{
-														store.storeState
-													}
-												</span>
-											</div>
-											<div className='text-start flex-row pt-0'>
-												<span className='fw-bold  fs-6'>
-													Store
-													Postal
-													:{' '}
-												</span>
-												<span className='fs-6 '>
-													{
-														store.storePostal
-													}
-												</span>
-											</div>
-											<div className='text-start flex-row pt-0'>
-												<span className='fw-bold  fs-6'>
-													Number
-													of
-													Response
-													:{' '}
-												</span>
-												<span className='fs-6'>
-													{
-														store.numberOfResponse
-													}
-												</span>
-											</div>
-										</div>
-									</div>
-								),
-							)}
-						</div>
-
-						<div
-							className={`py-0 card-rounded w-100`}
-							// style={{ backgroundColor: '#f3f4f5' }}
-						>
-							<h3 className='m-0 my-2 fw-bold fs-5'>
-								Project Detail
-							</h3>
-							{finalFormData?.map(
-								(data: any, index: number) => (
-									<div
-										className='d-flex mt-3 align-items-center mb-7 p-3'
+										className={
+											index % 2 ===
+											0
+												? 'ms-0 mb-3 me-3 px-3 py-2 '
+												: 'me-0 mb-3 ms-3 px-3 py-2 '
+										}
 										style={{
 											backgroundColor:
 												'#F2F9FF',
-										}}
-										key={index}>
-										<div className='symbol symbol-50px'>
-											{data.fileObj.map(
-												(
-													image: any,
-													index: number,
-												) => (
-													<img
-														key={
-															index
-														}
-														src={
-															image
-														}
-														className='me-5 img-fluid'
-														alt=''
-													/>
-												),
-											)}
+											borderRadius:
+												'6px',
+										}}>
+										<div className='text-start flex-row pt-2'>
+											<span className='fw-bold fs-6'>
+												Store
+												Name :{' '}
+											</span>
+											<span className='fs-6 '>
+												{' '}
+												{
+													store.storeName
+												}
+											</span>
 										</div>
-										<div className='d-flex flex-column'>
-											<div className=' text-start flex-row pt-0'>
-												<span className='fs-6'>
-													Product
-													Description
-													:{' '}
-												</span>
-												<span className='fw-bold  fs-6'>
-													{
-														data.itemDescription
-													}
-												</span>
-											</div>
-											<div className='d-flex text-start flex-row pt-0'>
-												<span className='fs-6'>
-													Product
-													Price
-													:
-												</span>
-												<span className=' fw-bold fs-6'>
-													{
-														'  '
-													}
-													₹{' '}
-													{
-														data.productPrice
-													}
-												</span>
-											</div>
+										<div className='text-start flex-row pt-0'>
+											<span className='fw-bold fs-6'>
+												Store
+												Address
+												:{' '}
+											</span>
+											<span className='fs-6 '>
+												{
+													store.storeAddress
+												}
+											</span>
+										</div>
+										<div className='text-start flex-row pt-0'>
+											<span className='fw-bold  fs-6'>
+												Store
+												City :{' '}
+											</span>
+											<span className='fs-6 '>
+												{
+													store.storeCity
+												}
+											</span>
+										</div>
+										<div className='text-start flex-row pt-0'>
+											<span className='fw-bold fs-6'>
+												Store
+												State :{' '}
+											</span>
+											<span className='fs-6 '>
+												{
+													store.storeState
+												}
+											</span>
+										</div>
+										<div className='text-start flex-row pt-0'>
+											<span className='fw-bold  fs-6'>
+												Store
+												Postal :{' '}
+											</span>
+											<span className='fs-6 '>
+												{
+													store.storePostal
+												}
+											</span>
+										</div>
+										<div className='text-start flex-row pt-0'>
+											<span className='fw-bold  fs-6'>
+												Number
+												of
+												Response
+												:{' '}
+											</span>
+											<span className='fs-6'>
+												{
+													store.numberOfResponse
+												}
+											</span>
 										</div>
 									</div>
-								),
-							)}
+								</div>
+							))}
+						</div>
+
+						<div className='py-0 card-rounded w-100'>
+							<h3 className='m-0 my-2 fw-bold fs-5'>
+								Project Detail
+							</h3>
+							{thirdPage?.map((data, index) => (
+								<div
+									className='d-flex mt-3 align-items-center mb-7 p-3'
+									style={{
+										backgroundColor:
+											'#F2F9FF',
+									}}
+									key={index}>
+									<div className='symbol symbol-50px'>
+										{data.fileObj.map(
+											(
+												image,
+												index,
+											) => (
+												<img
+													key={
+														index
+													}
+													src={
+														image
+													}
+													className='me-5 img-fluid'
+													alt=''
+												/>
+											),
+										)}
+									</div>
+									<div className='d-flex flex-column'>
+										<div className=' text-start flex-row pt-0'>
+											<span className='fs-6'>
+												Product
+												Description
+												:{' '}
+											</span>
+											<span className='fw-bold  fs-6'>
+												{
+													data.itemDescription
+												}
+											</span>
+										</div>
+										<div className='d-flex text-start flex-row pt-0'>
+											<span className='fs-6'>
+												Product
+												Price :
+											</span>
+											<span className=' fw-bold fs-6'>
+												{'  '}₹{' '}
+												{
+													data.productPrice
+												}
+											</span>
+										</div>
+									</div>
+								</div>
+							))}
 						</div>
 					</div>
 					<div className='col-md-4'>
-						<h3 className='m-0 my-3 fw-bold fs-5'>
+						<h3 className='m-0 mb-3 fw-bold fs-5'>
 							Project Summary
 						</h3>
 						<div
@@ -464,8 +444,39 @@ const FinalReview: FC<Props> = ({
 					</div>
 				</div>
 			</div>
+			<div
+				className='d-flex position-absolute  flex-stack pt-10'
+				style={{
+					width: '90%',
+					bottom: '2%',
+				}}>
+				<div className='mr-2'>
+					<button
+						// onClick={prevStep}
+						onClick={() => history.goBack()}
+						type='button'
+						className='btn btn-lg btn-stepper me-3 backButtonTop'
+						data-kt-stepper-action='previous'>
+						<KTSVG
+							path='/media/icons/duotune/arrows/arr063.svg'
+							className='svg-icon-4 me-1'
+						/>
+						Back
+					</button>
+				</div>
+
+				<div>
+					<button
+						onClick={handlePage}
+						className='btn btn-lg btn-stepper me-3 continueButtonTop'>
+						<span className='indicator-label'>
+							Continue
+						</span>
+					</button>
+				</div>
+			</div>
 		</div>
 	);
 };
 
-export { FinalReview };
+export default FinalReview;

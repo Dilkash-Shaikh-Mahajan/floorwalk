@@ -63,7 +63,7 @@ class Footer extends Component {
 									</ul>
 								</div>
 							</Col>
-							<Col md='4'>
+							<Col md='8'>
 								<div className='f-links'>
 									<h5>Useful Links</h5>
 									<ul className='list-unstyled'>
@@ -200,81 +200,6 @@ class Footer extends Component {
 											</Link>
 										</li>
 									</ul>
-								</div>
-							</Col>
-							<Col md='4'>
-								<div className='f-post'>
-									<h5>Recent Post</h5>
-									<div className='post-box d-flex'>
-										<div className='post-img'>
-											<img
-												src={
-													process
-														.env
-														.PUBLIC_URL +
-													'/assets/images/blog-2.jpg'
-												}
-												alt=''
-											/>
-										</div>
-										<div className='post-content'>
-											<Link
-												to={
-													process
-														.env
-														.PUBLIC_URL +
-													'/blog-details'
-												}>
-												Lorem
-												ipsum
-												dolor
-												sit amet
-												consectet
-												adipisicing
-												elit
-												com...
-											</Link>
-											<span>
-												Mar 30,
-												2020
-											</span>
-										</div>
-									</div>
-									<div className='post-box d-flex'>
-										<div className='post-img'>
-											<img
-												src={
-													process
-														.env
-														.PUBLIC_URL +
-													'/assets/images/blog-3.jpg'
-												}
-												alt=''
-											/>
-										</div>
-										<div className='post-content'>
-											<Link
-												to={
-													process
-														.env
-														.PUBLIC_URL +
-													'/blog-details'
-												}>
-												Lorem
-												ipsum
-												dolor
-												sit amet
-												consectet
-												adipisicing
-												elit
-												com...
-											</Link>
-											<span>
-												Mar 30,
-												2020
-											</span>
-										</div>
-									</div>
 								</div>
 							</Col>
 						</div>

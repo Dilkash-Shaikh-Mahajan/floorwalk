@@ -103,10 +103,10 @@ const HomeTwo = () => {
 			<NumberCounter />
 
 			{/* About Area */}
-			<AboutUs />
+			{/* <AboutUs /> */}
 
 			{/* Testimonial Slider */}
-			<TestimonialSlider />
+			{/* <TestimonialSlider /> */}
 
 			{/* Free Course Area */}
 			<FreeCourse />

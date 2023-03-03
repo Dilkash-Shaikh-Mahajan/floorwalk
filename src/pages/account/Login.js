@@ -12,10 +12,9 @@ import {
 	refreshTokenFunction,
 	setLoggedUser,
 } from '../../store/actions/Auth';
+import toast, { Toaster } from 'react-hot-toast';
 function Login() {
-	let history = useHistory();
-	let location = useLocation();
-	console.log(location);
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const backendURL = `http://54.147.49.251/api`;
 	useEffect(() => {
@@ -43,48 +42,25 @@ function Login() {
 				setSuccess(password);
 			}
 
-			let config = {
-				headers: {
-					'Content-Type': 'application/json',
-					// 'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Methods':
-						'GET,POST,OPTIONS,DELETE,PUT',
-				},
-			};
-			const registerData = await axios.post(
-				`http://54.147.49.251/api/token/`,
-				{
-					email: userValue,
-					password: passwordValue,
-				},
-			);
-			if (registerData.status === 200) {
-				dispatch(
-					refreshTokenFunction(registerData.data.refresh),
+			try {
+				const { data } = await axios.post(
+					`http://54.147.49.251/api/token/`,
+					{
+						email: userValue,
+						password: passwordValue,
+					},
 				);
-				dispatch(
-					accessTokenFunction(registerData.data.refresh),
-				);
-				dispatch(setLoggedUser(registerData.data));
-				sessionStorage.setItem(
-					'refressToken',
-					registerData.data.refresh,
-				);
-				sessionStorage.setItem(
-					'accessToken',
-					registerData.data.access,
-				);
-				if (location?.state?.prev == 'stepperReg') {
-					history.push({
-						pathname: '/stepper',
-
-						state: { prev: 'login' },
-					});
-				} else {
-					history.push('/');
+				history.push('/');
+				console.log(data);
+				dispatch(refreshTokenFunction(data.refresh));
+				dispatch(accessTokenFunction(data.access));
+				dispatch(setLoggedUser(data));
+			} catch (error) {
+				console.log(error);
+				if (error?.response) {
+					toast.error(error?.response?.data?.detail);
 				}
 			}
-			console.log(registerData);
 		}
 
 		function setError(input, message) {
@@ -102,160 +78,173 @@ function Login() {
 	});
 
 	return (
-		<Styles>
-			{/* Main Wrapper */}
-			<div className='main-wrapper login-page'>
-				{/* Header 2 */}
-				<HeaderTwo />
+		<>
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+				toastOptions={{
+					style: {
+						fontSize: '14px',
+					},
+				}}
+			/>
+			<Styles>
+				{/* Main Wrapper */}
+				<div className='main-wrapper login-page'>
+					{/* Header 2 */}
+					<HeaderTwo />
 
-				{/* Breadcroumb */}
-				<BreadcrumbBox title='Log In' />
+					{/* Breadcroumb */}
+					<BreadcrumbBox title='Log In' />
 
-				{/* Login Area */}
-				<section className='login-area'>
-					<Container>
-						<Row>
-							<Col md='12'>
-								<div className='login-box'>
-									<div className='login-title text-center'>
-										<h3>Log In</h3>
-									</div>
-									<form
-										id='form_login'
-										className='form'>
-										<p className='form-control'>
-											<label htmlFor='login_user'>
-												User
-												Name
-											</label>
-											<input
-												type='text'
-												placeholder='Username'
-												id='login_user'
-											/>
-											<span className='login_input-msg'></span>
-										</p>
-										<p className='form-control'>
-											<label htmlFor='login_password'>
-												Password
-											</label>
-											<input
-												type='password'
-												placeholder='*******'
-												id='login_password'
-											/>
-											<span className='login_input-msg'></span>
-										</p>
-										<button
-										// onClick={(
-										// 	e,
-										// ) =>
-										// 	formSubmit(
-										// 		e,
-										// 	)
-										// }
-										>
-											Log In
-										</button>
-										<div className='save-forget-password d-flex justify-content-between'>
-											<div className='save-passowrd'>
-												<label htmlFor='save_password'>
-													<input
-														type='checkbox'
-														id='save_password'
-														className='check-box'
-													/>
-													Save
+					{/* Login Area */}
+					<section className='login-area'>
+						<Container>
+							<Row>
+								<Col md='12'>
+									<div className='login-box'>
+										<div className='login-title text-center'>
+											<h3>
+												Log In
+											</h3>
+										</div>
+										<form
+											id='form_login'
+											className='form'>
+											<p className='form-control'>
+												<label htmlFor='login_user'>
+													User
+													Name
+												</label>
+												<input
+													type='text'
+													placeholder='Username'
+													id='login_user'
+												/>
+												<span className='login_input-msg'></span>
+											</p>
+											<p className='form-control'>
+												<label htmlFor='login_password'>
 													Password
 												</label>
-											</div>
-											<div className='forget-password'>
-												<Link
-													to={
-														process
-															.env
-															.PUBLIC_URL +
-														'/'
-													}>
-													Forget
-													Password?
-												</Link>
-											</div>
-										</div>
-										<div className='not_account-btn text-center'>
-											<p>
-												Haven't
-												Any
-												Account
-												Yet?{' '}
-												<Link
-													to={
-														process
-															.env
-															.PUBLIC_URL +
-														'/registration'
-													}>
-													Click
-													Here
-												</Link>
+												<input
+													type='password'
+													placeholder='*******'
+													id='login_password'
+												/>
+												<span className='login_input-msg'></span>
 											</p>
-										</div>
-										<div className='social-login text-center'>
-											<p>
-												Login
-												With
-												Social
-											</p>
-											<ul className='list-unstyled list-inline'>
-												<li className='list-inline-item'>
-													<a
-														href={
+											<button
+											// onClick={(
+											// 	e,
+											// ) =>
+											// 	formSubmit(
+											// 		e,
+											// 	)
+											// }
+											>
+												Log In
+											</button>
+											<div className='save-forget-password d-flex justify-content-between'>
+												<div className='save-passowrd'>
+													<label htmlFor='save_password'>
+														<input
+															type='checkbox'
+															id='save_password'
+															className='check-box'
+														/>
+														Save
+														Password
+													</label>
+												</div>
+												<div className='forget-password'>
+													<Link
+														to={
 															process
 																.env
 																.PUBLIC_URL +
 															'/'
 														}>
-														<i className='fab fa-google'></i>{' '}
-														Google
-													</a>
-												</li>
-												<li className='list-inline-item'>
-													<a
-														href={
+														Forget
+														Password?
+													</Link>
+												</div>
+											</div>
+											<div className='not_account-btn text-center'>
+												<p>
+													Haven't
+													Any
+													Account
+													Yet?{' '}
+													<Link
+														to={
 															process
 																.env
 																.PUBLIC_URL +
-															'/'
+															'/registration'
 														}>
-														<i className='fab fa-facebook-f'></i>{' '}
-														Facebook
-													</a>
-												</li>
-												<li className='list-inline-item'>
-													<a
-														href={
-															process
-																.env
-																.PUBLIC_URL +
-															'/'
-														}>
-														<i className='fab fa-twitter'></i>{' '}
-														Twitter
-													</a>
-												</li>
-											</ul>
-										</div>
-									</form>
-								</div>
-							</Col>
-						</Row>
-					</Container>
-				</section>
+														Click
+														Here
+													</Link>
+												</p>
+											</div>
+											<div className='social-login text-center'>
+												<p>
+													Login
+													With
+													Social
+												</p>
+												<ul className='list-unstyled list-inline'>
+													<li className='list-inline-item'>
+														<a
+															href={
+																process
+																	.env
+																	.PUBLIC_URL +
+																'/'
+															}>
+															<i className='fab fa-google'></i>{' '}
+															Google
+														</a>
+													</li>
+													<li className='list-inline-item'>
+														<a
+															href={
+																process
+																	.env
+																	.PUBLIC_URL +
+																'/'
+															}>
+															<i className='fab fa-facebook-f'></i>{' '}
+															Facebook
+														</a>
+													</li>
+													<li className='list-inline-item'>
+														<a
+															href={
+																process
+																	.env
+																	.PUBLIC_URL +
+																'/'
+															}>
+															<i className='fab fa-twitter'></i>{' '}
+															Twitter
+														</a>
+													</li>
+												</ul>
+											</div>
+										</form>
+									</div>
+								</Col>
+							</Row>
+						</Container>
+					</section>
 
-				{/* Footer 2 */}
-				<Footer />
-			</div>
-		</Styles>
+					{/* Footer 2 */}
+					<Footer />
+				</div>
+			</Styles>
+		</>
 	);
 }
 

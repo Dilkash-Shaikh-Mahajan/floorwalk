@@ -3,46 +3,39 @@ import { FC, useState } from 'react';
 import { KTSVG, toAbsoluteUrl } from '../helpers';
 import { Field, ErrorMessage, Formik, Form } from 'formik';
 import React from 'react';
-import { AddProjectModel } from './index';
 import { Carousel, Modal } from 'react-bootstrap';
-import Slider from 'react-slick';
-import { projectDetailSchema } from '../CreateAccountWizardHelper';
-let arrayFileFinals: any[];
-let fileArray: any = [];
-let fileObject: any = [];
-let finalfileArray: any[];
-let fileArrayIndex = 0;
+import { projectDetailSchema } from '../formHelper';
+import { thirdPageFunction } from '../../store/actions/stepperFormData';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-type Props = {
-	setFinalFormData: any;
-	finalFormData: any;
-};
-const ProductDetails: FC<Props> = ({
-	setFinalFormData,
-	finalFormData,
-}: any) => {
+let fileArray = [];
+let fileObject = [];
+
+const ProductDetails = () => {
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const { thirdPage } = useSelector((state) => state.stepperData);
+	const [finalFormData, setFinalFormData] = useState(thirdPage);
+	React.useEffect(() => {
+		if (!thirdPage) {
+			setFinalFormData([]);
+		}
+	}, []);
 	const [projectData, setProjectData] = useState([{}]);
-	const [showAddProjectModal, setshowAddProjectModal] =
-		useState<boolean>(false);
-	const [fileObj, setFileObj] = useState<any>([]);
-	const [fileFinalArray, setFileArray] = useState<any>([]);
-	const [productPrice, setProductPrice] = useState<any>('');
-	const [itemDescription, setItemDescription] = useState<any>('');
-	const [filesArrayIndex, setFilesArrayIndex] = useState<number>(0);
-	function addData() {
-		projectData.push({});
-		setProjectData(projectData);
-		setshowAddProjectModal(false);
-	}
+	const [showAddProjectModal, setshowAddProjectModal] = useState(false);
+	const [fileObj, setFileObj] = useState();
+	const [productPrice, setProductPrice] = useState();
+	const [itemDescription, setItemDescription] = useState();
+	const [filesArrayIndex, setFilesArrayIndex] = useState(0);
+
 	const initialValues = {
 		itemDescription: '',
 		productPrice: '',
 		productPhoto: '',
 	};
 
-	function uploadMultipleFiles(e: any) {
-		// fileArrayIndex = ++fileArrayIndex;
-
+	function uploadMultipleFiles(e) {
 		setFileObj('');
 		fileObject.push(e.target.files);
 
@@ -56,7 +49,7 @@ const ProductDetails: FC<Props> = ({
 		fileArray = [];
 	}
 
-	function uploadFiles(e: any) {
+	function uploadFiles(e) {
 		e.preventDefault();
 		setFileObj('');
 		setFinalFormData([
@@ -67,11 +60,15 @@ const ProductDetails: FC<Props> = ({
 				fileObj: fileObj,
 			},
 		]);
-		setFilesArrayIndex((prev: number) => prev + 1);
+		setFilesArrayIndex((prev) => prev + 1);
 		setshowAddProjectModal(false);
 	}
+	const handlePage = () => {
+		dispatch(thirdPageFunction(finalFormData));
+		history.push('/new_stepper/4');
+	};
 	return (
-		<div className='w-100'>
+		<div className='w-100 newStepperRightSide'>
 			<div className='pb-10 pb-lg-15'>
 				<h2 className='fw-bolder d-flex align-items-center text-dark'>
 					Project Details
@@ -87,17 +84,14 @@ const ProductDetails: FC<Props> = ({
 			</div>
 
 			<div className='fv-row'>
-				<div className='row'>
-					{finalFormData?.map((data: any, i: any) => (
+				<div className='row w-100'>
+					{finalFormData?.map((data, i) => (
 						<div
 							key={i}
 							className='d-flex align-items-center mb-7'>
 							<div className='symbol symbol-50px me-5'>
 								{data.fileObj.map(
-									(
-										image: any,
-										index: number,
-									) => (
+									(image, index) => (
 										<img
 											key={index}
 											src={image}
@@ -126,13 +120,9 @@ const ProductDetails: FC<Props> = ({
 					onClick={() => setshowAddProjectModal(true)}
 					data-bs-toggle='modal'
 					data-bs-target='#kt_modal_create_app'>
-					ADD ANOTHER
+					Add Item
 				</button>
-				{/* <AddProjectModel
-					show={showAddProjectModal}
-					handleClose={() => setshowAddProjectModal(false)}
-					handleAdd={() => addData()}
-				/> */}
+
 				<Modal
 					id='kt_modal_create_app'
 					aria-hidden='true'
@@ -158,10 +148,10 @@ const ProductDetails: FC<Props> = ({
 					<Formik
 						validationSchema={projectDetailSchema}
 						initialValues={initialValues}
-						onSubmit={async (values: any) => {
+						onSubmit={async (values) => {
 							console.log(values);
 						}}>
-						{({ values }: any) => (
+						{({ values }) => (
 							<Form
 								className=' w-100 w-xl-700px px-9'
 								noValidate
@@ -175,7 +165,7 @@ const ProductDetails: FC<Props> = ({
 
 										<input
 											onChange={(
-												e: any,
+												e,
 											) =>
 												setItemDescription(
 													e
@@ -198,7 +188,7 @@ const ProductDetails: FC<Props> = ({
 
 										<input
 											onChange={(
-												e: any,
+												e,
 											) =>
 												setProductPrice(
 													e
@@ -224,7 +214,7 @@ const ProductDetails: FC<Props> = ({
 											type='file'
 											className='form-control'
 											onChange={(
-												event: any,
+												event,
 											) =>
 												uploadMultipleFiles(
 													event,
@@ -267,8 +257,38 @@ const ProductDetails: FC<Props> = ({
 					</Formik>
 				</Modal>
 			</div>
+			<div
+				className='d-flex position-absolute  flex-stack pt-10'
+				style={{
+					width: '90%',
+					bottom: '2%',
+				}}>
+				<div className='mr-2'>
+					<button
+						onClick={() => history.goBack()}
+						type='button'
+						className='btn btn-lg btn-stepper me-3 backButtonTop'
+						data-kt-stepper-action='previous'>
+						<KTSVG
+							path='/media/icons/duotune/arrows/arr063.svg'
+							className='svg-icon-4 me-1'
+						/>
+						Back
+					</button>
+				</div>
+
+				<div>
+					<button
+						onClick={handlePage}
+						className='btn btn-lg btn-stepper me-3 continueButtonTop'>
+						<span className='indicator-label'>
+							Continue
+						</span>
+					</button>
+				</div>
+			</div>
 		</div>
 	);
 };
 
-export { ProductDetails };
+export default ProductDetails;

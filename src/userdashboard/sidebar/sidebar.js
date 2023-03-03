@@ -22,7 +22,7 @@ const Sidebar = () => {
 				<CDBSidebarHeader
 					prefix={<i className='fa fa-bars fa-large'></i>}>
 					<Link
-						href='/'
+						to='/'
 						className='text-decoration-none'
 						style={{
 							color: 'inherit',

@@ -1,32 +1,41 @@
 import React, { Component } from 'react';
+import { useSelector } from 'react-redux';
 import { Styles } from '../styles/coursePrice.js';
 
-class CoursePrice extends Component {
+const CoursePrice = () => {
+	const { subCategories } = useSelector((state) => state.stepper);
+	console.log(subCategories);
+	return (
+		<Styles>
+			{/* Course Price */}
+			<div className='course-price'>
+				<h5>Course SubCategory</h5>
+				<ul className='price-item list-unstyled'>
+					{subCategories.map((subCategory, i) => (
+						<li className='check-btn' key={i}>
+							<label>
+								<input
+									type='checkbox'
+									className='check-box'
+								/>
+								{subCategory.sub_category_name}
+							</label>
+						</li>
+					))}
+					{/* <li className='check-btn'>
+						<label htmlFor='price2'>
+							<input
+								type='checkbox'
+								id='price2'
+								className='check-box'
+							/>
+							Free<span>(09)</span>
+						</label>
+					</li> */}
+				</ul>
+			</div>
+		</Styles>
+	);
+};
 
-    render() {
-        return (
-            <Styles>
-                {/* Course Price */}
-                <div className="course-price">
-                    <h5>Course Price</h5>
-                    <ul className="price-item list-unstyled">
-                        <li className="check-btn">
-                            <label htmlFor="price1"><input type="checkbox" id="price1" className="check-box" />All<span>(121)</span></label>
-                        </li>
-                        <li className="check-btn">
-                            <label htmlFor="price2"><input type="checkbox" id="price2" className="check-box" />Free<span>(09)</span></label>
-                        </li>
-                        <li className="check-btn">
-                            <label htmlFor="price3"><input type="checkbox" id="price3" className="check-box" />Paid<span>(77)</span></label>
-                        </li>
-                        <li className="check-btn">
-                            <label htmlFor="price4"><input type="checkbox" id="price4" className="check-box" />Scholarship<span>(35)</span></label>
-                        </li>
-                    </ul>
-                </div>
-            </Styles>
-        )
-    }
-}
-
-export default CoursePrice
+export default CoursePrice;

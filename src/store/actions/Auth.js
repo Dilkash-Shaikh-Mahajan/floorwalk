@@ -4,6 +4,7 @@ const initialState = {
 	refreshToken: '',
 	accessToken: '',
 	user: {},
+	registerUser: {},
 };
 
 export const authSlice = createSlice({
@@ -19,11 +20,18 @@ export const authSlice = createSlice({
 		setLoggedUser: (state, action) => {
 			state.user = action.payload;
 		},
+		setRegisterUser: (state, action) => {
+			state.registerUser = action.payload;
+		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { accessTokenFunction, refreshTokenFunction, setLoggedUser } =
-	authSlice.actions;
+export const {
+	accessTokenFunction,
+	refreshTokenFunction,
+	setLoggedUser,
+	setRegisterUser,
+} = authSlice.actions;
 
 export default authSlice.reducer;

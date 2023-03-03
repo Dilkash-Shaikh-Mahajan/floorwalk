@@ -5,6 +5,7 @@ const initialState = {
 	industriesData: [],
 	categoriesData: [],
 	subCategories: [],
+	isUserAlreadyRegistered: false,
 };
 
 export const stepperSlice = createSlice({
@@ -23,6 +24,9 @@ export const stepperSlice = createSlice({
 		subCategoriesFunction: (state, action) => {
 			state.subCategories = action.payload;
 		},
+		isUserAlreadyRegisteredFunction: (state, action) => {
+			state.isUserAlreadyRegistered = action.payload;
+		},
 	},
 });
 
@@ -32,6 +36,7 @@ export const {
 	industriesDataFunction,
 	categoriesDataFunction,
 	subCategoriesFunction,
+	isUserAlreadyRegisteredFunction,
 } = stepperSlice.actions;
 
 export default stepperSlice.reducer;

@@ -4,32 +4,34 @@ import { KTSVG } from '../helpers';
 import { Field, ErrorMessage, Formik, FormikValues, Form } from 'formik';
 import React from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
-import {
-	IProjectTarget,
-	projectTargetInit,
-	projectTargetSchema,
-} from '../CreateAccountWizardHelper';
+
 import { Typeahead } from 'react-bootstrap-typeahead';
 import pincodes from '../../data/pincode/pincode';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-// let storeSecondAddress: any = [];
-type Props = {
-	storeSecondAddress: any;
-	setFinalTargetData: any;
-	finalTargetData: any;
-};
-let storeFinalData: string[];
-const ProductTargeting: FC<Props> = ({
-	storeSecondAddress,
-	setFinalTargetData,
-	finalTargetData,
-}: Props) => {
-	const [modalShow, setModalShow] = React.useState(false);
-	const [selectedPincode, setSelectedPincode] = React.useState([]);
-	let storeMainAddress: any = [];
+import { projectTargetInit, projectTargetSchema } from '../formHelper';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { secondPageFunction } from '../../store/actions/stepperFormData';
+let storeSecondAddress = [];
+// storeSecondAddress: any,
+// setFinalTargetData: any,
+// let finalTargetData;
 
-	const submitStep = (values: any, actions: FormikValues) => {
+// let storeFinalData[]; //unused
+const ProductTargeting = () => {
+	const [modalShow, setModalShow] = React.useState(false);
+	const { secondPage } = useSelector((state) => state.stepperData);
+	const [finalTargetData, setFinalTargetData] = React.useState(secondPage);
+	React.useEffect(() => {
+		if (!secondPage) {
+			setFinalTargetData([]);
+		}
+	}, []);
+	let storeMainAddress = [];
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const submitStep = (values, actions) => {
 		storeMainAddress.push({
 			storeAddress: values.storeAddress,
 			storeCity: values.storeCity,
@@ -52,12 +54,15 @@ const ProductTargeting: FC<Props> = ({
 		storeSecondAddress.push(...storeMainAddress);
 		setModalShow(false);
 
-		let storeData: any = sessionStorage.getItem('storeData');
+		let storeData = sessionStorage.getItem('storeData');
 		storeData = JSON.parse(storeData);
 	};
-
+	const handlePage = () => {
+		dispatch(secondPageFunction(finalTargetData));
+		history.push('/new_stepper/3');
+	};
 	return (
-		<div className='w-100'>
+		<div className='w-100 newStepperRightSide'>
 			<div className='pb-10 pb-lg-12'>
 				<h2 className='fw-bolder text-dark'>
 					Project Targeting
@@ -144,8 +149,8 @@ const ProductTargeting: FC<Props> = ({
 											option,
 										) => option.pincode}
 										onChange={(
-											e: any,
-											value: any,
+											e,
+											value,
 										) => {
 											setFieldValue(
 												'storePostal',
@@ -161,7 +166,7 @@ const ProductTargeting: FC<Props> = ({
 											);
 										}}
 										renderInput={(
-											params: any,
+											params,
 										) => (
 											<TextField
 												className='form-control form-control-lg form-control-solid'
@@ -257,35 +262,54 @@ const ProductTargeting: FC<Props> = ({
 					</tr>
 				</thead>
 				<tbody>
-					{finalTargetData?.map(
-						(store: any, index: number) => {
-							return (
-								<tr key={index}>
-									<td>{index + 1}</td>
-									<td>{store.storeName}</td>
-									<td>
-										{store.storeAddress}
-									</td>
-									<td>{store.storeCity}</td>
-									<td>
-										{store.storeState}
-									</td>
-									<td>
-										{store.storePostal}
-									</td>
-									<td>
-										{
-											store.numberOfResponse
-										}
-									</td>
-								</tr>
-							);
-						},
-					)}
+					{finalTargetData?.map((store, index) => {
+						return (
+							<tr key={index}>
+								<td>{index + 1}</td>
+								<td>{store.storeName}</td>
+								<td>{store.storeAddress}</td>
+								<td>{store.storeCity}</td>
+								<td>{store.storeState}</td>
+								<td>{store.storePostal}</td>
+								<td>
+									{store.numberOfResponse}
+								</td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</Table>
+			<div
+				className='d-flex position-absolute  flex-stack pt-10'
+				style={{
+					width: '90%',
+					bottom: '2%',
+				}}>
+				<div className='mr-2'>
+					<button
+						onClick={() => history.goBack()}
+						type='button'
+						className='btn btn-lg btn-stepper me-3 backButtonTop'
+						data-kt-stepper-action='previous'>
+						<KTSVG
+							path='/media/icons/duotune/arrows/arr063.svg'
+							className='svg-icon-4 me-1'
+						/>
+						Back
+					</button>
+				</div>
+				<div>
+					<button
+						onClick={handlePage}
+						className='btn btn-lg btn-stepper me-3 continueButtonTop'>
+						<span className='indicator-label'>
+							Continue
+						</span>
+					</button>
+				</div>
+			</div>
 		</div>
 	);
 };
 
-export { ProductTargeting };
+export default ProductTargeting;

@@ -129,7 +129,7 @@ const ProductSetup: FC<Props> = ({
 									className='form-check-input'
 									type='radio'
 									name='accountPlan'
-									value='1'
+									value='0'
 									onClick={() => {
 										setAudiencePreference(
 											false,
@@ -166,7 +166,7 @@ const ProductSetup: FC<Props> = ({
 									className='form-check-input'
 									type='radio'
 									name='accountPlan'
-									value='2'
+									value='1'
 									onClick={() => {
 										setAudiencePreference(
 											true,

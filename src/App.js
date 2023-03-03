@@ -27,7 +27,7 @@ import ProductDetails from './pages/shop/ProductDetails';
 import Cart from './pages/shop/Cart';
 import EnrollmentPage from './pages/enrollment/EnrollPage';
 import MainLayout from './userdashboard/MainLayout';
-
+import MainLayoutNew from './stepperNew/MainLayout';
 function App() {
 	return (
 		<Router>
@@ -153,6 +153,12 @@ function App() {
 				<Route
 					path={`${process.env.PUBLIC_URL + '/stepper'}`}
 					component={EnrollmentPage}
+				/>
+				<Route
+					path={`${
+						process.env.PUBLIC_URL + '/new_stepper'
+					}`}
+					component={MainLayoutNew}
 				/>
 				<Route
 					path={`${

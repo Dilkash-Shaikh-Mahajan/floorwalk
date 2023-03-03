@@ -23,7 +23,7 @@ class NumberCounter extends Component {
 									</h4>
 								</div>
 							</Col>
-							<Col md='3' xs='6'>
+							{/* <Col md='3' xs='6'>
 								<div className='counter-box'>
 									<div className='counter-icon'>
 										<i className='las la-university'></i>
@@ -123,7 +123,12 @@ class NumberCounter extends Component {
 										<p>Library Books</p>
 									</div>
 								</div>
-							</Col>
+							</Col> */}
+							<img
+								className='img-fluid position-relative'
+								src='/media/homepage/howwork.png'
+								alt=''
+							/>
 						</Row>
 					</Container>
 				</section>

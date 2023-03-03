@@ -2,24 +2,36 @@ import * as Yup from 'yup';
 
 export interface ICreateAccount {
 	projectName: string;
-	accountTeamSize: string;
+	// accountTeamSize: string;
 	accountName: string;
 	accountPlan: string;
 
-	nameOnCard: string;
-	cardNumber: string;
+	// nameOnCard: string;
+	// cardNumber: string;
 	businessType: string;
 	endDate: string;
 	startDate: string;
-	cardExpiryMonth: string;
-	cardExpiryYear: string;
-	cardCvv: string;
-	saveCard: string;
+	// cardExpiryMonth: string;
+	// cardExpiryYear: string;
+	// cardCvv: string;
+	// saveCard: string;
 	ageRange?: Array<string>;
 	occupation?: Array<string>;
 	incomeRange?: Array<string>;
 	carPriceRange?: Array<string>;
 	solutionInterestAreas?: Array<string>;
+	firstName: string;
+	lastName: string;
+	emailId: string;
+	mobileNumber: number;
+	companyName: string;
+	password: string;
+	cpassword: string;
+	address: string;
+	city: string;
+	state: string;
+	pincode: number;
+	gstin: string;
 }
 
 const createAccountSchemas = [
@@ -44,6 +56,24 @@ const createAccountSchemas = [
 		endDate: Yup.string().required().label('End Date'),
 		businessType: Yup.string().required().label('Business Type'),
 	}),
+	Yup.object({
+		firstName: Yup.string().required().label('First Name'),
+		lastName: Yup.string().required().label('Last Name'),
+		emailId: Yup.string().required().label('Email Id'),
+		mobileNumber: Yup.number().required().label('Mobile Number'),
+		companyName: Yup.string()
+			.nullable(true)
+			.notRequired()
+			.label('Company Name'),
+
+		password: Yup.string().required().label('Password'),
+		cpassword: Yup.string().required().label('Confirm Password'),
+		address: Yup.string().required().label('Address'),
+		city: Yup.string().required().label('City'),
+		state: Yup.string().required().label('State'),
+		pincode: Yup.number().required().label('Pincode'),
+		gstin: Yup.string().nullable(true).notRequired(),
+	}),
 ];
 const projectTargetSchema = Yup.object({
 	storeName: Yup.string().required().label('Store Name'),
@@ -55,25 +85,37 @@ const projectTargetSchema = Yup.object({
 });
 const inits: ICreateAccount = {
 	projectName: '',
-	accountTeamSize: '50+',
+	// accountTeamSize: '50+',
 	accountName: '',
-	accountPlan: '1',
+	accountPlan: '0',
 
 	endDate: '',
 	startDate: '',
 	businessType: '',
 
-	nameOnCard: 'Max Doe',
-	cardNumber: '4111 1111 1111 1111',
-	cardExpiryMonth: '1',
-	cardExpiryYear: '2025',
-	cardCvv: '123',
-	saveCard: '1',
+	// nameOnCard: 'Max Doe',
+	// cardNumber: '4111 1111 1111 1111',
+	// cardExpiryMonth: '1',
+	// cardExpiryYear: '2025',
+	// cardCvv: '123',
+	// saveCard: '1',
 	ageRange: [],
 	occupation: [],
 	incomeRange: [],
 	carPriceRange: [],
 	solutionInterestAreas: [],
+	firstName: '',
+	lastName: '',
+	emailId: '',
+	mobileNumber: 0,
+	companyName: '',
+	password: '',
+	cpassword: '',
+	address: '',
+	city: '',
+	state: '',
+	pincode: 0,
+	gstin: '',
 };
 export interface IProjectTarget {
 	storeName: string;
@@ -96,6 +138,18 @@ const projectDetailSchema = Yup.object({
 	productPrice: Yup.string().required().label('Product Price'),
 	productPhoto: Yup.string().required().label('Product Photo'),
 });
+export interface ILoginStep {
+	email: string;
+	password: string;
+}
+const loginStepper: ILoginStep = {
+	email: '',
+	password: '',
+};
+const loginStepperSchema = Yup.object({
+	email: Yup.string().required().label('Item Description'),
+	password: Yup.string().required().label('Product Price'),
+});
 
 export {
 	createAccountSchemas,
@@ -103,4 +157,6 @@ export {
 	projectTargetSchema,
 	projectTargetInit,
 	projectDetailSchema,
+	loginStepperSchema,
+	loginStepper,
 };
